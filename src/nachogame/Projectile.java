@@ -1,104 +1,127 @@
-package nachoGame;
+package nachogame;
 
 /**********************************************************************
- * This is a Projectile class for spaceNachos
+ * This is a Projectile class for spaceNachos.
+ * 
  * @author Jon DeWent
- *
+ * @author Cheng Li
+ * @author Ryan Bassor
  *********************************************************************/
 public class Projectile {
+	/** The x position of the projectile. */
 	private int x;
+	/** The y position of the projectile. */
 	private int y;
+	/** The height of the projectile. */
 	private int height;
+	/** The width of the projectile. */
 	private int width;
-	private int DMG = 1;
+	/** The damage the projectile inflicts. */
+	private int dmg = 1;
+	/** The velocity of the projectile. */
 	private final int pVel = 5;
-	
-	
+
 	/*****************************************************************
-	 * The constructor for Projectile
+	 * The constructor for Projectile.
+	 * @param x - the x position of the projectile.
+	 * @param y - the y position of the projectile.
+	 * @param height - the height of the projectile.
+	 * @param width - the width of the projectile.
 	 *****************************************************************/
-	public Projectile(int x,int y, int height, int width) {
+	public Projectile(final int x, final int y, final int height,
+			final int width) {
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 	}
-	
+
 	/*****************************************************************
-	 * This method returns the projectile velocity 
+	 * This method returns the projectile velocity.
+	 * @return the velocity of the projectile
 	 *****************************************************************/
 	public int getpVel() {
 		return pVel;
 	}
-	
+
 	/*****************************************************************
-	 * This method returns the damage of the projectile
+	 * This method returns the damage of the projectile.
+	 * @return dmg - the dmg of the projectile.
 	 *****************************************************************/
 	public int getDMG() {
-		return DMG;
-	}
-	
-	/*****************************************************************
-	 * This method sets the damage of projectiles
-	 *****************************************************************/
-	public void setDMG(int dMG) {
-		DMG = dMG;
+		return dmg;
 	}
 
 	/*****************************************************************
-	 * This method gets the x coordinates of a projectile
+	 * This method sets the damage of projectiles.
+	 * @param dMG - the dameage.
+	 *****************************************************************/
+	public void setDMG(final int dMG) {
+		dmg = dMG;
+	}
+
+	/*****************************************************************
+	 * This method gets the x coordinates of a projectile.
+	 * @return x - the x coordinate.
 	 *****************************************************************/
 	public int getX() {
 		return x;
 	}
-	
+
 	/*****************************************************************
-	 * This method sets the x coordinates of a projectile
+	 * This method sets the x coordinates of a projectile.
+	 * @param x - the x coordinate.
 	 *****************************************************************/
-	public void setX(int x) {
+	public void setX(final int x) {
 		this.x = x;
 	}
-	
+
 	/*****************************************************************
-	 * This method gets the y coordinates of a projectiles
+	 * This method gets the y coordinates of a projectile.
+	 * @return y - the y coordinate
 	 *****************************************************************/
 	public int getY() {
 		return y;
 	}
-	
+
 	/*****************************************************************
-	 * This
+	 * This method sets the y coordinates of the projectile.
+	 * @param y - the y coordinate the projectile be set to.
 	 *****************************************************************/
-	public void setY(int y) {
+	public void setY(final int y) {
 		this.y = y;
 	}
 
 	/*****************************************************************
-	 * This
-//	 *****************************************************************/
+	 * This method gets the height of the projectile. 
+	 * @return height
+	 *****************************************************************/
 	public int getHeight() {
 		return height;
 	}
 
 	/*****************************************************************
-	 * This
+	 * This method sets the height of the projectile.
+	 * @param height - the height of the projectile.
 	 *****************************************************************/
-	public void setHeight(int height) {
+	public void setHeight(final int height) {
 		this.height = height;
 	}
 
 	/*****************************************************************
-	 * This
+	 * This method gets the width of the projectile.
+	 * @return width 
 	 *****************************************************************/
 	public int getWidth() {
 		return width;
 	}
 
 	/*****************************************************************
-	 * This
+	 * This method sets the width of the projectile.
+	 * @param width 
 	 *****************************************************************/
-	public void setWidth(int width) {
+	public void setWidth(final int width) {
 		this.width = width;
 	}
-	
+
 }

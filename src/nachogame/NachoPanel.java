@@ -1,4 +1,4 @@
-package nachoGame;
+package nachogame;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,63 +13,62 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**********************************************************************
- * This is the panel where all the action happens for our awesome space nachos
- * game.
+ * This is the panel where all the action happens for our awesome 
+ * space nachos game.
  * 
  * @author Jon DeWent
  * @author Cheng Li
  * @version 10-13-2017
  *********************************************************************/
-public class NachoPanel extends JPanel
-		implements ActionListener, KeyListener {
+public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
-	/** instantiating timer used for game */
-	Timer tmr = new Timer(10, this);
+	/** instantiating timer used for game. */
+	private Timer tmr = new Timer(10, this);
 
-	/** Declaring game Logic */
-	Logic game;
+	/** Declaring game Logic. */
+	private Logic game;
 
-	/** A counter used to control auto enemy spawn rate */
-	int count;
+	/** A counter used to control auto enemy spawn rate. */
+	private int count;
 
-	/** Used as a counter to delay shooting the cheese */
-	int fire;
+	/** Used as a counter to delay shooting the cheese. */
+	private int fire;
 
-	/** A boolean that is determined by right arrow key presses */
-	boolean driveRight;
+	/** A boolean that is determined by right arrow key presses. */
+	private boolean driveRight;
 
-	/** A boolean that is determined by left arrow key presses */
-	boolean driveLeft;
+	/** A boolean that is determined by left arrow key presses. */
+	private boolean driveLeft;
 
-	/** A boolean that is determined by spacebar presses */
-	boolean shoot;
+	/** A boolean that is determined by spacebar presses. */
+	private boolean shoot;
 
-	/** This checks the game time elapsed in 0.01 seconds */
-	int timeElapsed;
+	/** This checks the game time elapsed in 0.01 seconds. */
+	private int timeElapsed;
 
-	/** A start time for counting one second */
-	int startTime;
+	/** A start time for counting one second. */
+	private int startTime;
 
-	/** A boolean determine if one second counting should start */
-	boolean startCount;
+	/** A boolean determine if one second counting should start. */
+	private boolean startCount;
 
-	static final int fireRate = 50;
+	/** An int used to control the fire rate of the ship. */
+	private static final int FIRERATE = 50;
 
-	/** a 60 second wave before the taco salad boos */
-	static final int nachoEnemy = 6000;
+	/** a 60 second wave before the taco salad boss. */
+	static final int NACHOENEMY = 6000;
 
-	/** A random to randomize how enemies are appear */
+	/** A random to randomize how enemies are appear. */
 	private Random rand;
-	
-	/** Determine if the player is playing the game */
+
+	/** Determine if the player is playing the game. */
 	private boolean gameOver;
-	
-	/** Determine if user paused the game or not */
+
+	/** Determine if user paused the game or not. */
 	private boolean gamePaused;
 
-	
 	/*******************************************************************
-	 * The game panel
+	 * The game panel for our nacho game.
 	 ******************************************************************/
 	public NachoPanel() {
 
@@ -100,7 +99,7 @@ public class NachoPanel extends JPanel
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
 		setFocusable(true);
-		
+
 		JFrame j = new JFrame("Animation Test");
 		j.addKeyListener(this);
 		j.setSize(Scaler.width, Scaler.height);
@@ -111,18 +110,17 @@ public class NachoPanel extends JPanel
 	}
 
 	/**********************************************************************
-	 * This method draws the graphics for the game
-	 * 
-	 * @param g
+	 * This method draws the graphics for the game.
+	 * @param g - the paint component.
 	 *********************************************************************/
-	public void paintComponent(Graphics g) {
+	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 
 		/* draw the background image */
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
 
 		/* draw the table */
-		for(Table t : game.getTables()) {
+		for (Table t : game.getTables()) {
 			g.drawImage(t.getImage(), t.getX(), t.getY(), this);
 		}
 
@@ -141,45 +139,47 @@ public class NachoPanel extends JPanel
 		}
 
 		/* displaying when ship is ready to fire again */
-		if (fire >= fireRate) {
+		if (fire >= FIRERATE) {
 			g.setColor(Color.GREEN);
-			g.fillRect(10, 770 - fireRate * 2, 10, fireRate * 2);
-		}
+			g.fillRect(10, 770 - FIRERATE * 2, 10, FIRERATE * 2);
+		
 
 		/* displays when ship is not ready to fire */
-		else {
-			if (fire <= fireRate / 2)
+		} else {
+			if (fire <= FIRERATE / 2) {
 				g.setColor(Color.RED);
+			}
 			g.fillRect(10, 770 - fire * 2, 10, fire * 2);
 		}
-		g.drawRect(10, 770 - fireRate * 2, 10, fireRate * 2);
-		
+		g.drawRect(10, 770 - FIRERATE * 2, 10, FIRERATE * 2);
+
 		/* Stop the game if the game is over */
 		if (gameOver) {
-			g.drawString("Game Over!", this.getWidth() / 2, this.getHeight() / 2);
+			g.drawString("Game Over!", this.getWidth() / 2,
+					this.getHeight() / 2);
 			tmr.stop();
 		}
-		
+
 		/* Pause the the game if player press Escape key */
 		if (gamePaused) {
-			g.drawString("Game Paused!", this.getWidth() / 2, this.getHeight() / 2);
+			g.drawString("Game Paused!", this.getWidth() / 2,
+					this.getHeight() / 2);
 			tmr.stop();
 		}
-		
+
 	}
 
 	/******************************************************************
-	 * This is the actionPerformed method that fires every time the Timer tmr
-	 * fires (every 10 milliseconds)
+	 * This is the actionPerformed method that fires every time the 
+	 * Timer tmr fires(every 10 milliseconds).
 	 * 
-	 * @param ActionEvent
-	 *            e - Every 10 milliseconds
+	 * @param e - Every 10 milliseconds
 	 ******************************************************************/
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(final ActionEvent e) {
 		// loop a sample game
 		testRun();
-		
+
 		/* start counting for 1 second when true */
 		if (startCount) {
 			startTime++;
@@ -188,32 +188,35 @@ public class NachoPanel extends JPanel
 		}
 
 		/*
-		 * checking which keys are still pressed and calling corresponding
-		 * action
+		 * checking which keys are still pressed and calling 
+		 * corresponding action
 		 */
 		checkKeys();
 
 		/* Moving ships and enemies and projectiles */
 		game.moveShip();
-		if (count % 3 == 0)
+		if (count % 3 == 0) {
 			game.moveEnemies();
+		}
 		game.moveProjectiles();
 
 		/* clearing enemies and projectiles that collided */
 		clearSpentProjectiles();
 		clearDeadEnemies();
 
-		/* checking ships position to ensure it stays within boundaries */
+		/* checking ships position to ensure it stays 
+		 * within boundaries. */
 		game.checkShipPosition();
 
 		/*
-		 * detecting collisions to be removed next time actionPerformed is
-		 * called
+		 * detecting collisions to be removed next time 
+		 * actionPerformed is called.
 		 */
 		game.detectCollisions();
 
 		/*
-		 * incrementing fire and count to control fire rate and enemy spawning
+		 * incrementing fire and count to control fire rate 
+		 * and enemy spawning.
 		 */
 		fire++;
 		count++;
@@ -225,23 +228,23 @@ public class NachoPanel extends JPanel
 	}
 
 	/******************************************************************
-	 * Blank method stub necessary for implementing KeyListener
+	 * Blank method stub necessary for implementing KeyListener.
 	 *****************************************************************/
 	@Override
-	public void keyTyped(KeyEvent e) {
-		
+	public void keyTyped(final KeyEvent e) {
+
 	}
 
 	/*****************************************************************
-	 * Setting key Events for the GUI If the player presses the left arrow the
-	 * ship will drive left If the player pushes the right arrow the ship will
-	 * drive right If the player pushes the spacebar the ship will shoot cheese.
+	 * Setting key Events for the GUI If the player presses the 
+	 * left arrow the ship will drive left If the player pushes the 
+	 * right arrow the ship will drive right If the player pushes 
+	 * the spacebar the ship will shoot cheese.
 	 * 
-	 * @param KeyEvent
-	 *            e - The key currently being pressed
+	 * @param e  The key currently being pressed
 	 ****************************************************************/
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(final KeyEvent e) {
 
 		int c = e.getKeyCode();
 		if (c == KeyEvent.VK_LEFT) {
@@ -257,25 +260,24 @@ public class NachoPanel extends JPanel
 		if (c == KeyEvent.VK_SPACE) {
 			shoot = true;
 		}
-		
+
 		if (c == KeyEvent.VK_ESCAPE) {
 			gamePaused = true;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			gamePaused = false;
 			tmr.restart();
 		}
 	}
 
 	/*******************************************************************
-	 * Stops ship from traveling when the arrow keys are released and stops the
-	 * ship from shooting if the spacebar is released.
+	 * Stops ship from traveling when the arrow keys are released and
+	 *  stops the ship from shooting if the spacebar is released.
 	 * 
-	 * @param KeyEvent
-	 *            e - the key that is released
+	 * @param e - the key that is released
 	 ******************************************************************/
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(final KeyEvent e) {
 		int c = e.getKeyCode();
 
 		if (c == KeyEvent.VK_LEFT) {
@@ -294,12 +296,13 @@ public class NachoPanel extends JPanel
 	}
 
 	/******************************************************************
-	 * This method clears expired projectiles that have either hit an enemy or
-	 * left the screen from the game.
+	 * This method clears expired projectiles that 
+	 * have either hit an enemy or left the screen from the game.
 	 *****************************************************************/
 	private void clearSpentProjectiles() {
-		for (Projectile p : game.getSpentProjectiles())
+		for (Projectile p : game.getSpentProjectiles()) {
 			game.getProjectiles().remove(p);
+		}
 	}
 
 	/******************************************************************
@@ -308,51 +311,55 @@ public class NachoPanel extends JPanel
 	 *****************************************************************/
 	private void clearDeadEnemies() {
 		for (Enemy c : game.getDeadEnemies()) {
-			c.setCounting(c.getCounting()+1);
-//			startCount = true;
-//			blinkEffect(c);
-			
-			
+			c.setCounting(c.getCounting() + 1);
+			// startCount = true;
+			// blinkEffect(c);
+
 			if (c.getCounting() == 100) {
-//				startCount = false;
-//				startTime = 0;
+				// startCount = false;
+				// startTime = 0;
 				game.getEnemies().remove(c);
 			}
-			
-//			game.getEnemies().remove(c);
+
+			// game.getEnemies().remove(c);
 		}
 	}
 
 	/******************************************************************
-	 * This method makes the explosion blink
+	 * This method makes the explosion blink.
+	 * @param c - The enemy that is exploding.
 	 *****************************************************************/
-	private void blinkEffect(Enemy c) {
-		if (c.getCounting() > 30 && c.getCounting() < 60)
-			c.setImage(null);
-		else if (c.getCounting() < 100)
-			c.doLogic();
-	}
-
+//	private void blinkEffect(final Enemy c) {
+//		if (c.getCounting() > 30 && c.getCounting() < 60) {
+//			c.setImage(null);
+//		} else if (c.getCounting() < 100) {
+//			c.doLogic();
+//		}
+//	}
+	//FIXME: Not working right now!
 	/******************************************************************
-	 * This method checks to see which keys are still pressed. If the keys are
-	 * still pressed they continue their action, regardless of what other keys
-	 * are pressed or released.
+	 * This method checks to see which keys are still pressed.
+	 * If the keys are still pressed they continue their action, 
+	 * regardless of what other keys are pressed or released.
 	 *****************************************************************/
 	private void checkKeys() {
 
 		// checking left arrow key
-		if (driveLeft)
+		if (driveLeft) {
 			game.driveLeft();
+		}
 
 		// checking right arrow key
-		if (driveRight)
+		if (driveRight) {
 			game.driveRight();
+		}
 
 		// checking spacebar
 		if (shoot) {
-			if (fire >= fireRate) {
-				game.getProjectiles().add(new Projectile(
-						game.getShip().getX() + 53, 670, 15, 15));
+			if (fire >= FIRERATE) {
+				game.getProjectiles().add(
+					new Projectile(game.getShip().getX() 
+							+ 53, 670, 15, 15));
 				fire = 0;
 			}
 		}
@@ -365,6 +372,7 @@ public class NachoPanel extends JPanel
 	private void generateEnemy() {
 		// generate random numbers
 		int track = rand.nextInt(5);
+		
 		switch (track) {
 		case 0:
 			game.spawnEnemy(25);
@@ -381,11 +389,13 @@ public class NachoPanel extends JPanel
 		case 4:
 			game.spawnEnemy(825);
 			break;
+		default:
+			break;
 		}
 	}
 
 	/*******************************************************************
-	 * This method generate a wave of enemy on the screen, enemy will
+	 * This method generate a wave of enemy on the screen, enemy will 
 	 * appear on the middle three tracks.
 	 ******************************************************************/
 	private void generateWave() {
@@ -402,51 +412,55 @@ public class NachoPanel extends JPanel
 		case 2:
 			game.spawnEnemy(625);
 			break;
+		default:
+			break;
+
 		}
 	}
-	
+
 	/*******************************************************************
 	 * This method runs a basic game of the space rock nacho.
 	 * 
 	 ******************************************************************/
-	private void testRun(){
+	private void testRun() {
 		/* Auto spawning enemies for testing */
-		/* First 30 seconds*/
-		if (timeElapsed < nachoEnemy/2) {
-			if (count % 300 == 0)
+		/* First 30 seconds */
+		if (timeElapsed < NACHOENEMY / 2) {
+			if (count % 300 == 0) {
 				generateEnemy();
+			}
 		}
 		/* 30 second to 48 second, wave 1 */
-		else if (timeElapsed >= nachoEnemy / 2
-				&& timeElapsed <= nachoEnemy * 0.8) {
-			if (count % 150 == 0)
+		else if (timeElapsed >= NACHOENEMY / 2 
+				&& timeElapsed <= NACHOENEMY * 0.8) {
+			if (count % 150 == 0) {
 				generateWave();
-		}
-		else if (timeElapsed > nachoEnemy * 0.8 && timeElapsed < nachoEnemy) {
-			if (count % 300 == 0)
+			}
+		} else if (timeElapsed > NACHOENEMY * 0.8 
+				&& timeElapsed < NACHOENEMY) {
+			if (count % 300 == 0) {
 				generateEnemy();
-		}
-		/* */
-		else if (timeElapsed == nachoEnemy && timeElapsed <= nachoEnemy * 1.5) {
+			}
+		} else if (timeElapsed == NACHOENEMY && timeElapsed 
+				<= NACHOENEMY * 1.5) {
 			generateBoss();
-		}  else if (timeElapsed > nachoEnemy * 3.5){
+		} else if (timeElapsed > NACHOENEMY * 3.5) {
 			gameOver = true;
 		}
 	}
 
 	/*******************************************************************
-	 * Generate a boss object
+	 * Generate a boss into the game.
 	 ******************************************************************/
 	private void generateBoss() {
 		game.spawnBoss();
 	}
 
 	/******************************************************************
-	 * Testing our source code
-	 * 
-	 * @param args
+	 * Testing our source code.
+	 * @param args - the arguments to be passed.
 	 *****************************************************************/
-	public static void main(String args[]) {
+	public static void main(final String[] args) {
 		new NachoPanel();
 	}
 }

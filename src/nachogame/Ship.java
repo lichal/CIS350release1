@@ -1,0 +1,38 @@
+package nachogame;
+
+/**********************************************************************
+ * This is the ship class which inherits from space object
+ * nacho game.
+ * @author Jon DeWent
+ * @author Cheng Li
+ * @author Ryan Bassor
+ * @version 10-24-2017
+ *********************************************************************/
+public class Ship extends SpaceObject {
+
+	/** The velocity when ship is stopped. */
+	protected static int V0; 
+	/** The velocity when the ship is driving left. */
+	protected static int VL; 
+	/** The velocity when the ship is driving right. */
+	protected static int VR;
+
+	/*****************************************************************
+	 * The constructor for ship.
+	 ****************************************************************/
+	public Ship() {
+		super(1.0, 0.085, "Art/Disgusting_Mustard_Yellow.png");
+		setX(Scaler.width / 2);
+		setY(getMaxY() + 15);
+		V0 = 0;
+		VL = -5;
+		VR = 5;
+	}
+
+	@Override
+	public void doLogic() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

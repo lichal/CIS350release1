@@ -1,4 +1,4 @@
-package nachoGame;
+package nachogame;
 
 import java.awt.Image;
 import java.io.File;
@@ -15,30 +15,26 @@ import javax.imageio.ImageIO;
 public abstract class Entity {
 
 	/** x position of the current instance of entity. */
-	protected int x;
+	private int x;
 
 	/** y position of the current instance of entity. */
-	protected int y;
+	private int y;
 
 	/** Health of the current instance of entity. */
-	protected int health;
+	private int health;
 
-	/** Current entity graphic */
-	protected Image image;
+	/** Current entity graphic. */
+	private Image image;
 
 	/*******************************************************************
-	 * This is the constructor for entity
-	 * 
-	 * @param img
-	 *            string reference of the entity graphic
-	 * @param x
-	 *            the x position on the screen of entity
-	 * @param y
-	 *            the y position on the screen of entity
-	 * @param health
-	 *            current entity health
+	 * This is the constructor for entity.
+	 * @param img - string reference of the entity graphic
+	 * @param x - the x position on the screen of entity
+	 * @param y - the y position on the screen of entity
+	 * @param health - current entity health
 	 ******************************************************************/
-	public Entity(String img, int x, int y, int health) {
+	public Entity(final String img, final int x, final int y,
+			final int health) {
 		this.x = x;
 		this.y = y;
 		this.health = health;
@@ -58,12 +54,10 @@ public abstract class Entity {
 	}
 
 	/*******************************************************************
-	 * Set the x position of the entity
-	 * 
-	 * @param x
-	 *            x position of the entity
+	 * Set the x position of the entity.
+	 * @param x - x position of the entity.
 	 ******************************************************************/
-	public void setX(int x) {
+	public void setX(final int x) {
 		this.x = x;
 	}
 
@@ -75,12 +69,10 @@ public abstract class Entity {
 	}
 
 	/*******************************************************************
-	 * Set the y position of the entity
-	 * 
-	 * @param y
-	 *            y position of the entity
+	 * Set the y position of the entity.
+	 * @param y - y position of the entity
 	 ******************************************************************/
-	public void setY(int y) {
+	public void setY(final int y) {
 		this.y = y;
 	}
 
@@ -92,22 +84,19 @@ public abstract class Entity {
 	}
 
 	/*******************************************************************
-	 * Set the entity health
+	 * Set the entity health.
 	 * 
-	 * @param health
-	 *            entity health
+	 * @param health - entity health
 	 ******************************************************************/
-	public void setHealth(int health) {
+	public void setHealth(final int health) {
 		this.health = health;
 	}
 
-	/******************************`*************************************
-	 * Set the graphic of entity
-	 * 
-	 * @param img
-	 *            string reference of entity graphic
+	/*******************************************************************
+	 *  Set the graphic of entity.
+	 * @param img string reference of entity graphic
 	 ******************************************************************/
-	public void setImage(String img) {
+	public void setImage(final String img) {
 		if (img == null) {
 			image = null;
 			return;
@@ -118,6 +107,17 @@ public abstract class Entity {
 			e.printStackTrace();
 		}
 	}
+	
+	/*******************************************************************
+	 *  Set the graphic of entity.
+	 * 
+	 * @param img string reference of entity graphic
+	 ******************************************************************/
+	public void setImage(final Image img) {
+		this.image = img;
+	}
+	
+	
 
 	/*******************************************************************
 	 * @return entity image
@@ -127,7 +127,7 @@ public abstract class Entity {
 	}
 
 	/*******************************************************************
-	 * This abstract class contain partial logic of the entity
+	 * This abstract class contain partial logic of the entity.
 	 ******************************************************************/
 	public abstract void doLogic();
 

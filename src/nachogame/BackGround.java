@@ -1,4 +1,4 @@
-package nachoGame;
+package nachogame;
 
 import java.awt.Image;
 import java.io.File;
@@ -6,28 +6,24 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /***********************************************************************
- * This class set the background image according to the game panel size
+ * This class set the background image according to the game panel size.
  * 
  * @author Cheng Li
  * @version 10-14-2017
  **********************************************************************/
 public class BackGround {
-	
+
+	/** The background for our game. */
 	private Image background;
 
 	/***********************************************************************
-	 * The main constructor of the background
-	 * 
-	 * @param width
-	 *            background screen width
-	 * @param height
-	 *            background screen height
+	 * The main constructor of the background.
 	 **********************************************************************/
 	public BackGround() {
 		try {
 			background = ImageIO.read(new File("Art/back.jpg"));
-			background = background.getScaledInstance(Scaler.width, Scaler.height+40,
-					Image.SCALE_DEFAULT);
+			background = background.getScaledInstance(Scaler.width,
+			Scaler.height + 40, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException m) {
@@ -35,7 +31,11 @@ public class BackGround {
 		}
 	}
 
-	public Image getBack(){
+	/***********************************************************************
+	 * This method returns the background image.
+	 * @return background - the background image.
+	 **********************************************************************/
+	public Image getBack() {
 		return background;
 	}
 

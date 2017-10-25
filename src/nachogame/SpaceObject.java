@@ -1,55 +1,90 @@
-package nachoGame;
+package nachogame;
 
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-
+/**********************************************************************
+ * This class creates object for the game which enemy, ship and enemy
+ * inherit from.
+ * 
+ * @author Jon DeWent
+ * @author Cheng Li
+ * @author Ryan Bassor
+ * @version 10-13-2017
+ *********************************************************************/
 public abstract class SpaceObject {
+	public double getAspectRatio() {
+		return aspectRatio;
+	}
+
+	public double getPortion() {
+		return portion;
+	}
+
+	public int getVelX() {
+		return velX;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
 	/** x position of the current instance of entity. */
-	protected int x;
+	private int x;
 
 	/** y position of the current instance of entity. */
-	protected int y;
+	private int y;
 
 	/** Health of the current instance of entity. */
-	protected int health;
+	private int health;
 
-	/** Current entity graphic */
-	protected Image image;
-	
-	protected double aspectRatio;
-	
-	protected double portion;
-	
-	protected int width;
-	
-	protected int height;
-	
-	protected int velX;
-	
+	/** Current entity graphic. */
+	private Image image;
+
+	/** Controls the size of the object. */
+	private double aspectRatio;
+
+	/** controls the portion of the screen the object uses. */
+	private double portion;
+
+	/** The width of the SpaceObject. */
+	private int width;
+
+	/** The height of the object. */
+	private int height;
+
+	/** The velocity of the spaceObject. */
+	private int velX;
+
+	/** The velocity of the spaceObject. */
 	protected int velY;
-	
+
 	/*******************************************************************
-	 * @param aR
-	 * @param por
+	 * This is the constructor for SpaceObject.
+	 * @param aR - the aspect ratio of the SpaceObject.
+	 * @param por - the portion size of the SpaceObject.
+	 * @param imageSource - the name of the file the image is from.
 	 ******************************************************************/
-	public SpaceObject(double aR, double por, String imageSource) {
+	public SpaceObject(final double aR, final double por, 
+			final String imageSource) {
 		refactor(aR, por, imageSource);
 	}
-	
+
 	/*******************************************************************
-	 * Set the graphic of entity
+	 * Set the graphic of entity.
 	 * 
-	 * @param img
-	 *            string reference of entity graphic
+	 * @param imageSource - string reference of entity graphic
+	 * @param por - the portion size of the SpaceObject.
+	 * @param aR - the name of the file the image is from.
 	 ******************************************************************/
-	public void refactor(double aR, double por, String imageSource) {
+	public void refactor(final double aR, final double por, 
+		final String imageSource) {
 		aspectRatio = aR;
 		portion = por;
 		try {
-			int size[] = Scaler.calcDimensions(aspectRatio, portion);
+			int[] size = Scaler.calcDimensions(
+				aspectRatio, portion);
 			image = ImageIO.read(new File(imageSource));
 			width = size[0];
 			height = size[1];
@@ -60,11 +95,11 @@ public abstract class SpaceObject {
 		} catch (IllegalArgumentException m) {
 			System.out.println("Size render problem!!!");
 		}
-		
+
 		velX = 0;
 		velY = 0;
 	}
-	
+
 	/*******************************************************************
 	 * @return current x position of entity
 	 ******************************************************************/
@@ -73,12 +108,10 @@ public abstract class SpaceObject {
 	}
 
 	/*******************************************************************
-	 * Set the x position of the entity
-	 * 
-	 * @param x
-	 *            x position of the entity
+	 * Set the x position of the entity.
+	 * @param x - x position of the entity
 	 ******************************************************************/
-	public void setX(int x) {
+	public void setX(final int x) {
 		this.x = x;
 	}
 
@@ -90,12 +123,10 @@ public abstract class SpaceObject {
 	}
 
 	/*******************************************************************
-	 * Set the y position of the entity
-	 * 
-	 * @param y
-	 *            y position of the entity
+	 * Set the y position of the entity.
+	 * @param y - y position of the entity
 	 ******************************************************************/
-	public void setY(int y) {
+	public void setY(final int y) {
 		this.y = y;
 	}
 
@@ -105,51 +136,55 @@ public abstract class SpaceObject {
 	public int getHealth() {
 		return health;
 	}
-	
+
 	/*******************************************************************
-	 * Set the entity health
+	 * Set the entity health.
 	 * 
-	 * @param health
-	 *            entity health
+	 * @param health - entity health
 	 ******************************************************************/
-	public void setHealth(int health) {
+	public void setHealth(final int health) {
 		this.health = health;
 	}
-	
+
 	/*******************************************************************
-	 * Set the graphic of entity
+	 * Set the graphic of entity.
 	 * 
-	 * @param img
-	 *            string reference of entity graphic
+	 * @param img - string reference of entity graphic
 	 ******************************************************************/
-	public void setImage(String img) {
+	public void setImage(final String img) {
 		refactor(aspectRatio, portion, img);
 	}
-	
+
 	/*******************************************************************
 	 * @return entity image
 	 ******************************************************************/
 	public Image getImage() {
 		return image;
 	}
-	
+
 	// returns middle of image on X side
-	/** The line that vertically bisects the object's image */
+	/****************************************************************** 
+	 * The line that vertically bisects the object's image.
+	 * @return - the middle x of the image.
+	 *  **************************************************************/
 	public int getMiddle() {
 		return (int) (x + (0.5 * width));
 	}
-	
-	
-	// the farthest x pos it can be drawn at
+
+	/******************************************************************
+	 * @return the farthest x pos it can be drawn at
+	 *****************************************************************/
 	public int getMaxX() {
 		return (Scaler.width - width);
 	}
-	
-	
+
+	/******************************************************************
+	 * @return the farthest y pos it can be drawn at
+	 *****************************************************************/
 	public int getMaxY() {
 		return (Scaler.height - height);
 	}
-	
+
 	/******************************************************************
 	 * @return an int for enemy height
 	 *****************************************************************/
@@ -163,44 +198,46 @@ public abstract class SpaceObject {
 	public int getWidth() {
 		return width;
 	}
-	
+
 	/*****************************************************************
-	 * 
+	 * @return velX - the x velocity of the SpaceObject.
 	 *****************************************************************/
 	public int getVelx() {
 		return velX;
 	}
-	
+
 	/******************************************************************
-	 * @return current y velocity of enemy
+	 * @return current y velocity of enemy.
 	 *****************************************************************/
 	public int getVelY() {
 		return velY;
 	}
-	
+
 	/*****************************************************************
-	 * 
+	 * @param velX - the x velocity of the SpaceObject.
 	 *****************************************************************/
-	public void setVelX(int velX) {
+	public void setVelX(final int velX) {
 		this.velX = velX;
 	}
-	
+
 	/*****************************************************************
-	 * 
+	 * @param velX - the x velocity of the SpaceObject.
 	 *****************************************************************/
-	public void setVelY(int velX) {
+	public void setVelY(final int velX) {
 		this.velX = velX;
 	}
-	
+
 	/*******************************************************************
-	 * This abstract class contain partial logic of the entity
+	 * This abstract class contain partial logic of the entity.
 	 ******************************************************************/
 	public abstract void doLogic();
-	
-	// move thing
+
+	/******************************************************************
+	 * This method moves the SpaceObject position.
+	 *****************************************************************/
 	public void move() {
 		x += velX;
 		y += velY;
 	}
-	
+
 }
