@@ -120,9 +120,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
 
 		/* draw the table */
-		for (Table t : game.getTables()) {
-			g.drawImage(t.getImage(), t.getX(), t.getY(), this);
-		}
+//		for (Table t : game.getTables()) {
+//			g.drawImage(t.getImage(), t.getX(), t.getY(), this);
+//		}
 
 		/* drawing ship */
 		g.drawImage(game.getShip().getImage(), game.getShip().getX(),

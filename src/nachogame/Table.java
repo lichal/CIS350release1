@@ -9,7 +9,7 @@ import java.awt.Image;
  * @author Jon DeWent
  * @version 10-24-2017
  *********************************************************************/
-public class Table extends Entity {
+public class Table  {
 
 	/** The width of a table. */
 	private final int width = 175;
@@ -23,15 +23,15 @@ public class Table extends Entity {
 	 * @param health - the health of the table.
 	 *****************************************************************/
 	public Table(final String img, final int x, final int health) {
-		super(img, x, 650, health);
-
-		setImage(getImage().getScaledInstance(
-				width, height, Image.SCALE_DEFAULT));
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void doLogic() {
+//		super(img, x, 650, health);
+//
+//		setImage(getImage().getScaledInstance(
+//				width, height, Image.SCALE_DEFAULT));
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	@Override
+//	public void doLogic() {
 
 	}
 
