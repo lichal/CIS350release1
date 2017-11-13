@@ -64,7 +64,7 @@ public class Enemy extends SpaceObject {
 
 	/******************************************************************
 	 * @param collide
-	 *            true if the enemy collides with something
+	 *            true if the enemy collides with something else
 	 * @param img
 	 *            explosion graphic
 	 *****************************************************************/
