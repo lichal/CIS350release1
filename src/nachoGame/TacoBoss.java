@@ -8,7 +8,11 @@ public class TacoBoss extends Enemy {
 
 	public TacoBoss(int health) {
 		super(health);
+		this.health = health;
 		refactor(0.75, 0.10, "Art/tacosalad.png");
 		destroyed = false;
+		x = 500;
+		y = -height;
+		velY=1;
 	}
 }

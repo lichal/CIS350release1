@@ -20,11 +20,5 @@ public class Ship extends SpaceObject{
 		VL = -5;
 		VR = 5;
 	}
-
-	@Override
-	public void doLogic() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

@@ -18,6 +18,7 @@ import javax.swing.Timer;
  * 
  * @author Jon DeWent
  * @author Cheng Li
+ * @author Ryan Basso
  * @version 10-13-2017
  *********************************************************************/
 public class NachoPanel extends JPanel
@@ -101,7 +102,7 @@ public class NachoPanel extends JPanel
 		addKeyListener(this);
 		setFocusable(true);
 		
-		JFrame j = new JFrame("Animation Test");
+		JFrame j = new JFrame("Space Rock Nacho");
 		j.addKeyListener(this);
 		j.setSize(Scaler.width, Scaler.height);
 		j.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -125,7 +126,7 @@ public class NachoPanel extends JPanel
 		for(Table t : game.getTables()) {
 			g.drawImage(t.getImage(), t.getX(), t.getY(), this);
 		}
-
+		
 		/* drawing ship */
 		g.drawImage(game.getShip().getImage(), game.getShip().getX(),
 				game.getShip().getMaxY(), this);
@@ -308,18 +309,12 @@ public class NachoPanel extends JPanel
 	 *****************************************************************/
 	private void clearDeadEnemies() {
 		for (Enemy c : game.getDeadEnemies()) {
-			c.setCounting(c.getCounting()+1);
-//			startCount = true;
-//			blinkEffect(c);
 			
+			c.setCounting(c.getCounting()+1);
 			
 			if (c.getCounting() == 100) {
-//				startCount = false;
-//				startTime = 0;
 				game.getEnemies().remove(c);
 			}
-			
-//			game.getEnemies().remove(c);
 		}
 	}
 

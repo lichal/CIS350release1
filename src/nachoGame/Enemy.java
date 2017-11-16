@@ -16,6 +16,7 @@ import java.util.Random;
  *********************************************************************/
 public class Enemy extends SpaceObject {
 	
+	/** We might not need this variable */
 	private int counting;
 	
 	/** This Boolean determines if the enemy is destroyed or not. */
@@ -24,7 +25,7 @@ public class Enemy extends SpaceObject {
 	/** The rectangle for enemy to determine a collision */
 	private Rectangle enemy = new Rectangle();
 	
-	/** The rectangle for shoot determine a collision */
+	/** The rectangle for projectile determine a collision */
 	private Rectangle shoot = new Rectangle();
 
 	/*****************************************************************
@@ -37,6 +38,7 @@ public class Enemy extends SpaceObject {
 		super(1.0, 0.0655, "Art/Nasty_Nacho_Lime.png");
 		destroyed = false;
 		
+		// created an new random to randomly spawn enemy on the screen
 		Random r = new Random();
 		x = r.nextInt(Scaler.width - width);
 		y = -height;
@@ -90,7 +92,6 @@ public class Enemy extends SpaceObject {
 	 * dead enemy. It will set enemy graphic to an explosion graphic
 	 * if the enemy health is zero.
 	 *****************************************************************/
-	@Override
 	public void doLogic() {
 		if (this.getHealth() <= 0) {
 			detectDestroyed(true, "Art/explode.png");
@@ -98,12 +99,17 @@ public class Enemy extends SpaceObject {
 	}
 	
 	/******************************************************************
+	 * Set the current counting
 	 * 
+	 * @param counting the counting want to set
 	 *****************************************************************/
 	public void setCounting(int counting){
 		this.counting = counting;
 	}
 	
+	/******************************************************************
+	 * @return current counting
+	 *****************************************************************/
 	public int getCounting() {
 		return counting;
 	}

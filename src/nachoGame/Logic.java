@@ -120,6 +120,9 @@ public class Logic extends JPanel {
 		return tables;
 	}
 
+	/*****************************************************************
+	 * This method returns the arraylist of tables in the game
+	 *****************************************************************/
 	public void setInitialTables() {
 		tables.add(new Table("Art/table.png", 50, 1));
 		tables.add(new Table("Art/table.png", 250, 1));

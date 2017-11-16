@@ -6,7 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-public abstract class SpaceObject {
+public class SpaceObject {
 	/** x position of the current instance of entity. */
 	protected int x;
 
@@ -133,7 +133,9 @@ public abstract class SpaceObject {
 		return image;
 	}
 	
-	// returns middle of image on X side
+	/*******************************************************************
+	 * @return the bisects point of the space object in the middle
+	 ******************************************************************/
 	/** The line that vertically bisects the object's image */
 	public int getMiddle() {
 		return (int) (x + (0.5 * width));
@@ -195,7 +197,6 @@ public abstract class SpaceObject {
 	/*******************************************************************
 	 * This abstract class contain partial logic of the entity
 	 ******************************************************************/
-	public abstract void doLogic();
 	
 	// move thing
 	public void move() {

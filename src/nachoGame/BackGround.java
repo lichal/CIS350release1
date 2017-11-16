@@ -12,22 +12,19 @@ import javax.imageio.ImageIO;
  * @version 10-14-2017
  **********************************************************************/
 public class BackGround {
-	
+
+	/** The background image */
 	private Image background;
 
-	/***********************************************************************
-	 * The main constructor of the background
-	 * 
-	 * @param width
-	 *            background screen width
-	 * @param height
-	 *            background screen height
-	 **********************************************************************/
+	/*******************************************************************
+	 * The main constructor of the background, it will perform the read
+	 * background, resize background.
+	 ******************************************************************/
 	public BackGround() {
 		try {
 			background = ImageIO.read(new File("Art/back.jpg"));
-			background = background.getScaledInstance(Scaler.width, Scaler.height+40,
-					Image.SCALE_DEFAULT);
+			background = background.getScaledInstance(Scaler.width,
+					Scaler.height + 40, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException m) {
@@ -35,7 +32,10 @@ public class BackGround {
 		}
 	}
 
-	public Image getBack(){
+	/*******************************************************************
+	 * @return current background image
+	 ******************************************************************/
+	public Image getBack() {
 		return background;
 	}
 
