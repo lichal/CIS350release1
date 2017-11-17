@@ -103,7 +103,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		JFrame j = new JFrame("SPACE ROCK NACHO");
 		j.addKeyListener(this);
-		j.setSize(Scaler.width, Scaler.height+22);
+		j.setSize(Scaler.width, Scaler.height);
 //		j.setExtendedState(JFrame.MAXIMIZED_BOTH);	// This would set the screen size to max always, conflicted with setSize()
 		j.setUndecorated(true); // This would set the game panel to full screen
 		j.add(this);
@@ -312,11 +312,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 *****************************************************************/
 	private void clearDeadEnemies() {
 		for (Enemy c : game.getDeadEnemies()) {
-			System.out.println(startTime);
-			if(c.getDestroyed())
-				startCount = true;
-			if(startTime >= 100) {
-				startCount = false;
+//			if(c.getDestroyed())
+//				startCount = true;
+			if(timeElapsed % 100 == 0) {
+//				startCount = false;
 				game.getEnemies().remove(c);
 			}
 		}
