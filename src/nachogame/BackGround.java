@@ -23,7 +23,7 @@ public class BackGround {
 		try {
 			background = ImageIO.read(new File("Art/back.jpg"));
 			background = background.getScaledInstance(Scaler.width,
-			Scaler.height + 40, Image.SCALE_DEFAULT);
+			Scaler.height, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException m) {
