@@ -1,11 +1,13 @@
 package nachogame;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -23,7 +25,7 @@ import javax.swing.Timer;
 public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** instantiating timer used for game. */
-	private Timer tmr = new Timer(10, this);
+	private Timer tmr;
 
 	/** Declaring game Logic. */
 	private Logic game;
@@ -40,7 +42,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** A boolean that is determined by left arrow key presses. */
 	private boolean driveLeft;
 
-	/** A boolean that is determined by spacebar presses. */
+	/** A boolean that is determined by space bar presses. */
 	private boolean shoot;
 
 	/** This checks the game time elapsed in 0.01 seconds. */
@@ -71,7 +73,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * The game panel for our nacho game.
 	 ******************************************************************/
 	public NachoPanel() {
-
 		/* instantiating all key driven booleans as false */
 		driveRight = false;
 		driveLeft = false;
@@ -87,8 +88,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		game = new Logic();
 
 		/* starting the timer that fires the ActionListener */
+		tmr = new Timer(10, this);
 		tmr.start();
-		tmr.addActionListener(this);
 
 		/* instantiating fire, count, timeElapsed, and startTime at 0 */
 		fire = 0;
@@ -100,10 +101,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		addKeyListener(this);
 		setFocusable(true);
 
-		JFrame j = new JFrame("Animation Test");
+		JFrame j = new JFrame("SPACE ROCK NACHO");
 		j.addKeyListener(this);
-		j.setSize(Scaler.width, Scaler.height);
-		j.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		j.setSize(Scaler.width, Scaler.height+22);
+//		j.setExtendedState(JFrame.MAXIMIZED_BOTH);	// This would set the screen size to max always, conflicted with setSize()
+		j.setUndecorated(true); // This would set the game panel to full screen
 		j.add(this);
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.setVisible(true);
@@ -115,7 +117,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 *********************************************************************/
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-
 		/* draw the background image */
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
 
@@ -131,7 +132,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* drawing projectiles */
 		g.setColor(Color.yellow);
 		for (Projectile x : game.getProjectiles()) {
-			g.fillOval(x.getX(), x.getY(), 15, 35);
+			g.fillOval(x.getX(), x.getY(), x.getWidth(), x.getHeight());
 		}
 		/* drawing enemies */
 		for (Enemy x : game.getEnemies()) {
@@ -141,17 +142,16 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* displaying when ship is ready to fire again */
 		if (fire >= FIRERATE) {
 			g.setColor(Color.GREEN);
-			g.fillRect(10, 770 - FIRERATE * 2, 10, FIRERATE * 2);
-		
+			g.fillRect(10, Scaler.height - 10 - FIRERATE * 4, 10, FIRERATE * 4);
 
 		/* displays when ship is not ready to fire */
 		} else {
 			if (fire <= FIRERATE / 2) {
 				g.setColor(Color.RED);
 			}
-			g.fillRect(10, 770 - fire * 2, 10, fire * 2);
+			g.fillRect(10, Scaler.height - 10 - fire * 4, 10, fire * 4);
 		}
-		g.drawRect(10, 770 - FIRERATE * 2, 10, FIRERATE * 2);
+		g.drawRect(10, Scaler.height - 10 - FIRERATE * 4, 10, FIRERATE * 4);
 
 		/* Stop the game if the game is over */
 		if (gameOver) {
@@ -166,7 +166,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 					this.getHeight() / 2);
 			tmr.stop();
 		}
-
 	}
 
 	/******************************************************************
@@ -195,9 +194,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		/* Moving ships and enemies and projectiles */
 		game.moveShip();
-		if (count % 3 == 0) {
-			game.moveEnemies();
-		}
+		game.moveEnemies();
+
 		game.moveProjectiles();
 
 		/* clearing enemies and projectiles that collided */
@@ -218,13 +216,16 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 * incrementing fire and count to control fire rate 
 		 * and enemy spawning.
 		 */
-		fire++;
 		count++;
+		fire++;
 		timeElapsed++;
-
+		
+		
 		/* repainting graphics */
 		repaint();
 		revalidate();
+		
+//		System.out.println(timeElapsed);
 	}
 
 	/******************************************************************
@@ -304,24 +305,20 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 			game.getProjectiles().remove(p);
 		}
 	}
-
+	
 	/******************************************************************
 	 * This method clears dead enemies (enemies with 0 health) from the game
 	 * ArrayList of enemies.
 	 *****************************************************************/
 	private void clearDeadEnemies() {
 		for (Enemy c : game.getDeadEnemies()) {
-			c.setCounting(c.getCounting() + 1);
-			// startCount = true;
-			// blinkEffect(c);
-
-			if (c.getCounting() == 100) {
-				// startCount = false;
-				// startTime = 0;
+			System.out.println(startTime);
+			if(c.getDestroyed())
+				startCount = true;
+			if(startTime >= 100) {
+				startCount = false;
 				game.getEnemies().remove(c);
 			}
-
-			// game.getEnemies().remove(c);
 		}
 	}
 
@@ -357,9 +354,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		// checking spacebar
 		if (shoot) {
 			if (fire >= FIRERATE) {
-				game.getProjectiles().add(
-					new Projectile(game.getShip().getX() 
-							+ 53, 670, 15, 15));
+				game.getProjectiles().add(new Projectile(game.getShip()));
 				fire = 0;
 			}
 		}
@@ -370,28 +365,28 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * 5 cases, enemy might appear on 5 different places.
 	 ******************************************************************/
 	private void generateEnemy() {
-		// generate random numbers
-		int track = rand.nextInt(5);
-		
-		switch (track) {
-		case 0:
-			game.spawnEnemy(25);
-			break;
-		case 1:
-			game.spawnEnemy(225);
-			break;
-		case 2:
-			game.spawnEnemy(425);
-			break;
-		case 3:
-			game.spawnEnemy(625);
-			break;
-		case 4:
-			game.spawnEnemy(825);
-			break;
-		default:
-			break;
-		}
+//		// generate random numbers
+//		int track = rand.nextInt(5);
+//		
+//		switch (track) {
+//		case 0:
+//			game.spawnEnemy(25);
+//			break;
+//		case 1:
+//			game.spawnEnemy(Scaler.width * 2/5);
+//			break;
+//		case 2:
+//			game.spawnEnemy(Scaler.width * 3/5);
+//			break;
+//		case 3:
+//			game.spawnEnemy(Scaler.width * 4/5);
+//			break;
+//		case 4:
+//			game.spawnEnemy(Scaler.width * 5/5);
+//			break;
+//		default:
+//			break;
+//		}
 	}
 
 	/*******************************************************************
@@ -400,22 +395,22 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 ******************************************************************/
 	private void generateWave() {
 		// generate random numbers
-		int track = rand.nextInt(3);
-
-		switch (track) {
-		case 0:
-			game.spawnEnemy(225);
-			break;
-		case 1:
-			game.spawnEnemy(425);
-			break;
-		case 2:
-			game.spawnEnemy(625);
-			break;
-		default:
-			break;
-
-		}
+//		int track = rand.nextInt(3);
+//
+//		switch (track) {
+//		case 0:
+//			game.spawnEnemy(225);
+//			break;
+//		case 1:
+//			game.spawnEnemy(425);
+//			break;
+//		case 2:
+//			game.spawnEnemy(625);
+//			break;
+//		default:
+//			break;
+//
+//		}
 	}
 
 	/*******************************************************************
@@ -425,26 +420,30 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private void testRun() {
 		/* Auto spawning enemies for testing */
 		/* First 30 seconds */
+		
 		if (timeElapsed < NACHOENEMY / 2) {
 			if (count % 300 == 0) {
-				generateEnemy();
+				game.spawnEnemy(25);
+//				generateEnemy();
 			}
 		}
 		/* 30 second to 48 second, wave 1 */
 		else if (timeElapsed >= NACHOENEMY / 2 
 				&& timeElapsed <= NACHOENEMY * 0.8) {
 			if (count % 150 == 0) {
-				generateWave();
+				game.spawnEnemy(25);
+//				generateWave();
 			}
 		} else if (timeElapsed > NACHOENEMY * 0.8 
 				&& timeElapsed < NACHOENEMY) {
 			if (count % 300 == 0) {
-				generateEnemy();
+				game.spawnEnemy(25);
+//				generateEnemy();
 			}
-		} else if (timeElapsed == NACHOENEMY && timeElapsed 
+		} else if (timeElapsed >= NACHOENEMY && timeElapsed 
 				<= NACHOENEMY * 1.5) {
 			generateBoss();
-		} else if (timeElapsed > NACHOENEMY * 3.5) {
+		} else if (timeElapsed >= NACHOENEMY * 1.5) {
 			gameOver = true;
 		}
 	}
