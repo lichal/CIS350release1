@@ -71,7 +71,7 @@ public class Enemy extends SpaceObject {
 		this.setImage(img);
 		destroyed = collide;
 		setImage(getImage().getScaledInstance(
-				getWidth(), getHeight(), Image.SCALE_DEFAULT));
+				getWidth(), (int)(getHeight()*0.7), Image.SCALE_DEFAULT));
 	}
 
 	/*******************************************************************
