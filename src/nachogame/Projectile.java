@@ -1,5 +1,7 @@
 package nachogame;
 
+import java.io.File;
+
 /**********************************************************************
  * This is a Projectile class for spaceNachos.
  * 
@@ -7,41 +9,20 @@ package nachogame;
  * @author Cheng Li
  * @author Ryan Bassor
  *********************************************************************/
-public class Projectile {
-	/** The x position of the projectile. */
-	private int x;
-	/** The y position of the projectile. */
-	private int y;
-	/** The height of the projectile. */
-	private int height;
-	/** The width of the projectile. */
-	private int width;
+public class Projectile extends SpaceObject{
 	/** The damage the projectile inflicts. */
-	private int dmg = 1;
-	/** The velocity of the projectile. */
-	private final int pVel = 5;
+	private int dmg;
 
 	/*****************************************************************
 	 * The constructor for Projectile.
-	 * @param x - the x position of the projectile.
-	 * @param y - the y position of the projectile.
-	 * @param height - the height of the projectile.
-	 * @param width - the width of the projectile.
+	 * @param s - The ship fires projectile
 	 *****************************************************************/
-	public Projectile(final int x, final int y, final int height,
-			final int width) {
-		this.x = x;
-		this.y = y;
-		this.height = height;
-		this.width = width;
-	}
-
-	/*****************************************************************
-	 * This method returns the projectile velocity.
-	 * @return the velocity of the projectile
-	 *****************************************************************/
-	public int getpVel() {
-		return pVel;
+	public Projectile(Ship s) {
+		super(3.0, 0.0085, "Art/Disgusting_Mustard_Yellow.png");
+		setX((int)(s.getMiddle() - 0.5 * getWidth()));
+		setY(Scaler.height - s.getHeight() - getHeight());
+		velY = - Scaler.height/100;
+		dmg = 1;
 	}
 
 	/*****************************************************************
@@ -60,68 +41,10 @@ public class Projectile {
 		dmg = dMG;
 	}
 
-	/*****************************************************************
-	 * This method gets the x coordinates of a projectile.
-	 * @return x - the x coordinate.
-	 *****************************************************************/
-	public int getX() {
-		return x;
-	}
-
-	/*****************************************************************
-	 * This method sets the x coordinates of a projectile.
-	 * @param x - the x coordinate.
-	 *****************************************************************/
-	public void setX(final int x) {
-		this.x = x;
-	}
-
-	/*****************************************************************
-	 * This method gets the y coordinates of a projectile.
-	 * @return y - the y coordinate
-	 *****************************************************************/
-	public int getY() {
-		return y;
-	}
-
-	/*****************************************************************
-	 * This method sets the y coordinates of the projectile.
-	 * @param y - the y coordinate the projectile be set to.
-	 *****************************************************************/
-	public void setY(final int y) {
-		this.y = y;
-	}
-
-	/*****************************************************************
-	 * This method gets the height of the projectile. 
-	 * @return height
-	 *****************************************************************/
-	public int getHeight() {
-		return height;
-	}
-
-	/*****************************************************************
-	 * This method sets the height of the projectile.
-	 * @param height - the height of the projectile.
-	 *****************************************************************/
-	public void setHeight(final int height) {
-		this.height = height;
-	}
-
-	/*****************************************************************
-	 * This method gets the width of the projectile.
-	 * @return width 
-	 *****************************************************************/
-	public int getWidth() {
-		return width;
-	}
-
-	/*****************************************************************
-	 * This method sets the width of the projectile.
-	 * @param width 
-	 *****************************************************************/
-	public void setWidth(final int width) {
-		this.width = width;
+	@Override
+	public void doLogic() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
