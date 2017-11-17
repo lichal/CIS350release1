@@ -25,8 +25,8 @@ public class Ship extends SpaceObject {
 		setX(Scaler.width / 2);
 		setY(getMaxY() + 15);
 		V0 = 0;
-		VL = -5;
-		VR = 5;
+		VL = -Scaler.width/200;
+		VR = Scaler.width/200;
 	}
 
 	@Override
