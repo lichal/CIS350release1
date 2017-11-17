@@ -41,9 +41,8 @@ public class Enemy extends SpaceObject {
 		Random r = new Random();
 		setX(r.nextInt(Scaler.width - getWidth()));
 		setY(-getHeight());
-		velY = (int) Math.ceil(.00111 * Scaler.height);
+		velY = (int) Math.ceil(Scaler.height/ 250);
 		
-
 		counting = 0;
 	}
 
@@ -89,7 +88,7 @@ public class Enemy extends SpaceObject {
 		enemy.setBounds(getX(), getY(), getWidth(), getHeight());
 		shoot.setBounds(other.getX(), other.getY(), 
 				other.getWidth(), other.getHeight());
-
+		
 		return enemy.intersects(shoot);
 	}
 
@@ -119,23 +118,6 @@ public class Enemy extends SpaceObject {
 	 *****************************************************************/
 	public int getCounting() {
 		return counting;
-	}
-
-	/******************************************************************
-	 * This method gets the rectangle of the enemy. Used for detecting
-	 * collisions.
-	 * @return enemy - a rectangle the size of the enemy.
-	 *****************************************************************/
-	public Rectangle getEnemy() {
-		return enemy;
-	}
-
-	/******************************************************************
-	 * This method gets the rectangle for projectile.
-	 * @return shoot - a rectangle for projectile.
-	 *****************************************************************/
-	public Rectangle getShoot() {
-		return shoot;
 	}
 
 	/******************************************************************
