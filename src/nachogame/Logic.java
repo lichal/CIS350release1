@@ -16,9 +16,9 @@ public class Logic extends JPanel {
 	private Ship ship;
 	/** The ArrayList of enemies in the game. */
 	private ArrayList<Enemy> enemies;
-	/** The ArrayList of Projectiles in the game.*/
+	/** The ArrayList of Projectiles in the game. */
 	private ArrayList<Projectile> projectiles;
-	/** The ArrayList of spent projectiles in the game.*/
+	/** The ArrayList of spent projectiles in the game. */
 	private ArrayList<Projectile> spentProjectiles;
 	/** The arrayList of dead enemies in the game. */
 	private ArrayList<Enemy> deadEnemies;
@@ -55,6 +55,7 @@ public class Logic extends JPanel {
 
 	/******************************************************************
 	 * This method gets the background for the game.
+	 * 
 	 * @return background - the game background.
 	 *****************************************************************/
 	public BackGround getBackGround() {
@@ -68,14 +69,14 @@ public class Logic extends JPanel {
 	public void moveProjectiles() {
 
 		/*
-		 * looping through decrementing y position and adding 
-		 * expired projectiles to spentProjectiles
+		 * looping through decrementing y position and adding expired projectiles to
+		 * spentProjectiles
 		 */
 		for (Projectile x : projectiles) {
 			if (x.getY() < -10) {
 				spentProjectiles.add(x);
 			}
-			x.setY(x.getY() - x.getpVel());
+			x.setY(x.getY() + x.getVelY());
 		}
 	}
 
@@ -102,6 +103,7 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method returns the ship in the game.
+	 * 
 	 * @return ship - the ship in the game.
 	 *****************************************************************/
 	public Ship getShip() {
@@ -110,7 +112,9 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method sets the ship in the game.
-	 * @param ship - the ship in the game.
+	 * 
+	 * @param ship
+	 *            - the ship in the game.
 	 *****************************************************************/
 	public void setShip(final Ship ship) {
 		this.ship = ship;
@@ -118,6 +122,7 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method sets the ship in the game.
+	 * 
 	 * @return boss - the boss in the game.
 	 *****************************************************************/
 	public TacoBoss getBoss() {
@@ -126,6 +131,7 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method returns the arraylist of enemies in the game.
+	 * 
 	 * @return enemies - the Enemies in the game.
 	 *****************************************************************/
 	public ArrayList<Enemy> getEnemies() {
@@ -134,6 +140,7 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method returns the arraylist of projectiles in the game.
+	 * 
 	 * @return projectiles - the projectiles in the game.
 	 *****************************************************************/
 	public ArrayList<Projectile> getProjectiles() {
@@ -142,6 +149,7 @@ public class Logic extends JPanel {
 
 	/*****************************************************************
 	 * This method returns the arraylist of tables in the game.
+	 * 
 	 * @return tables - the tables in the game.
 	 *****************************************************************/
 	public ArrayList<Table> getTables() {
@@ -160,8 +168,8 @@ public class Logic extends JPanel {
 	}
 
 	/*****************************************************************
-	 * This method returns the arraylist of pissedOffTables in 
-	 * the game.
+	 * This method returns the arraylist of pissedOffTables in the game.
+	 * 
 	 * @return pissedOffTables - the tables that get hit by chips.
 	 *****************************************************************/
 	public ArrayList<Table> getPissedOffTables() {
@@ -169,35 +177,38 @@ public class Logic extends JPanel {
 	}
 
 	/******************************************************************
-	 * This method detects collisions between projectiles and 
-	 * Enemies and adds the corresponding enemies to deadEnemies 
-	 * and the projectiles to spentProjectiles.
+	 * This method detects collisions between projectiles and Enemies and adds the
+	 * corresponding enemies to deadEnemies and the projectiles to spentProjectiles.
 	 *****************************************************************/
 	public void detectCollisions() {
 		for (Enemy e : enemies) {
-			if (e.getY() >= 600) {
-				e.setHealth(0);
+			
+			// determine if enemy collide with the ship
+			if (e.getY() >= Scaler.height - ship.getHeight() - e.getHeight()) {
+				e.setHealth(e.getHealth()-e.getHealth());
 				deadEnemies.add(e);
-				ship.setHealth(ship.getHealth() - 1);
+				e.doLogic();
 			}
+
 			for (Projectile p : projectiles) {
 
 				// determine if the shot hits the enemy
 				if (e.collide(p)) {
-
 					// enemy health minus projectile damage
-				if (e.getHealth() > 0) {
-					// add spent projectile to the array
-					spentProjectiles.add(p);
-					e.setHealth(e.getHealth() - p.getDMG());
+					if (e.getHealth() > 0) {
+						// add spent projectile to the array
+						spentProjectiles.add(p);
+						e.setHealth(e.getHealth() - p.getDMG());
 					}
 
-				// check health, add dead enemy to the array
-				if (e.getHealth() == 0) {
-					spentProjectiles.add(p);
-					deadEnemies.add(e);
-					e.doLogic();
-				}
+					// check health, add dead enemy to the array
+					if (e.getHealth() == 0) {
+						if(!e.getDestroyed()) {
+							spentProjectiles.add(p);
+						}
+						deadEnemies.add(e);
+						e.doLogic();
+					}
 				}
 			}
 		}
@@ -205,7 +216,9 @@ public class Logic extends JPanel {
 
 	/******************************************************************
 	 * This method adds a new enemy to enemies ArrayList.
-	 * @param x - The x coordinate of the enemy.
+	 * 
+	 * @param x
+	 *            - The x coordinate of the enemy.
 	 *****************************************************************/
 	public void spawnEnemy(final int x) {
 		enemies.add(new Enemy(1));
@@ -219,15 +232,17 @@ public class Logic extends JPanel {
 	}
 
 	/******************************************************************
-	 * This method moves the Enemies on the screen and deletes 
-	 * enemies that have traveled out of bounds.
+	 * This method moves the Enemies on the screen and deletes enemies that have
+	 * traveled out of bounds.
 	 *****************************************************************/
 	public void moveEnemies() {
 		for (Enemy e : enemies) {
 			if (e.getDestroyed()) {
 				e.setY(e.getY());
-				e.setX(e.getX());
-			} else if (e.getY() < 580) {
+				e.doLogic();
+				deadEnemies.add(e);
+			}
+			else if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
 				e.setY(e.getY() + e.getVelY());
 			}
 		}
@@ -235,6 +250,7 @@ public class Logic extends JPanel {
 
 	/******************************************************************
 	 * This method retrieves the spentProjectiles ArrayList.
+	 * 
 	 * @return spentProjectiles - an ArrayList of dead projectiles
 	 *****************************************************************/
 	public ArrayList<Projectile> getSpentProjectiles() {
@@ -243,6 +259,7 @@ public class Logic extends JPanel {
 
 	/******************************************************************
 	 * This method retrieves the deadEnemies ArrayList.
+	 * 
 	 * @return deadEnemies - an arrayList of the dead Enemies
 	 *****************************************************************/
 	public ArrayList<Enemy> getDeadEnemies() {
