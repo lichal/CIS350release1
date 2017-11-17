@@ -127,4 +127,13 @@ public class Enemy extends SpaceObject {
 	public void setDestroyed(final Boolean destroyed) {
 		this.destroyed = destroyed;
 	}
+	
+	public void incrementCount() {
+		counting ++;
+	}
+	
+	public void resetCount() {
+		counting = 0;
+	}
 }
+

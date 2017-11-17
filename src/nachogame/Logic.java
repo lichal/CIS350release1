@@ -164,7 +164,7 @@ public class Logic extends JPanel {
 		tables.add(new Table("Art/table.png", 250, 1));
 		tables.add(new Table("Art/table.png", 450, 1));
 		tables.add(new Table("Art/table.png", 650, 1));
-		System.out.println(tables.size());
+//		System.out.println(tables.size());
 	}
 
 	/*****************************************************************
@@ -183,7 +183,11 @@ public class Logic extends JPanel {
 	public void detectCollisions() {
 		for (Enemy e : enemies) {
 			
-			// determine if enemy collide with the ship
+			if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
+				e.setY(e.getY() + e.getVelY());
+			}
+			
+//			 determine if enemy collide with the ship
 			if (e.getY() >= Scaler.height - ship.getHeight() - e.getHeight()) {
 				e.setHealth(e.getHealth()-e.getHealth());
 				deadEnemies.add(e);
@@ -203,11 +207,12 @@ public class Logic extends JPanel {
 
 					// check health, add dead enemy to the array
 					if (e.getHealth() == 0) {
-						if(!e.getDestroyed()) {
+//						if(!e.getDestroyed()) {
 							spentProjectiles.add(p);
-						}
+//						}
 						deadEnemies.add(e);
 						e.doLogic();
+						
 					}
 				}
 			}
@@ -237,14 +242,14 @@ public class Logic extends JPanel {
 	 *****************************************************************/
 	public void moveEnemies() {
 		for (Enemy e : enemies) {
-			if (e.getDestroyed()) {
-				e.setY(e.getY());
-				e.doLogic();
-				deadEnemies.add(e);
-			}
-			else if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
-				e.setY(e.getY() + e.getVelY());
-			}
+//			if (e.getDestroyed()) {
+//				e.setY(e.getY());
+//				e.doLogic();
+//				deadEnemies.add(e);
+//			}
+//			if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
+//				e.setY(e.getY() + e.getVelY());
+//			}
 		}
 	}
 

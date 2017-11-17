@@ -138,6 +138,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		for (Enemy x : game.getEnemies()) {
 			g.drawImage(x.getImage(), x.getX(), x.getY(), this);
 		}
+		
+		for (Enemy x : game.getDeadEnemies()) {
+			g.drawImage(x.getImage(), x.getX(), x.getY(), this);
+		}
 
 		/* displaying when ship is ready to fire again */
 		if (fire >= FIRERATE) {
@@ -311,14 +315,27 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * ArrayList of enemies.
 	 *****************************************************************/
 	private void clearDeadEnemies() {
+		ArrayList <Enemy> e = new ArrayList<Enemy>();
 		for (Enemy c : game.getDeadEnemies()) {
-			System.out.println(startTime);
-			if(c.getDestroyed())
-				startCount = true;
-			if(startTime >= 100) {
+//			System.out.println(startTime);
+//			if(c.getDestroyed())
+			game.getEnemies().remove(c);
+				c.incrementCount();
+//			game.getEnemies().remove(c);
+			if(c.getCounting() % 40 == 0) {
+				e.add(c);
 				startCount = false;
+				c.resetCount();
 				game.getEnemies().remove(c);
+//				game.getDeadEnemies().remove(c);
+				System.out.println(game.getEnemies().size());
+				
+//				System.out.println(game.getEnemies().size());
 			}
+//			game.getDeadEnemies().clear();
+		}
+		for (Enemy a : e) {
+		game.getDeadEnemies().remove(a);
 		}
 	}
 
@@ -422,13 +439,13 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* First 30 seconds */
 		
 		if (timeElapsed < NACHOENEMY / 2) {
-			if (count % 300 == 0) {
+			if (count % 100 == 0) {
 				game.spawnEnemy(25);
 //				generateEnemy();
 			}
-		}
+		
 		/* 30 second to 48 second, wave 1 */
-		else if (timeElapsed >= NACHOENEMY / 2 
+		} else if (timeElapsed >= NACHOENEMY / 2 
 				&& timeElapsed <= NACHOENEMY * 0.8) {
 			if (count % 150 == 0) {
 				game.spawnEnemy(25);
