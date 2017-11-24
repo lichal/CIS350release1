@@ -55,7 +55,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
-	private static final int FIRERATE = 50;
+	private static final int FIRERATE = 30;
 
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
@@ -69,11 +69,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Determine if user paused the game or not. */
 	private boolean gamePaused;
 
+	/** The level the player is on */
+	private Level level;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
 	public NachoPanel() {
 		/* instantiating all key driven booleans as false */
+		level = new Level(LevelNum.LEVEL8);
 		driveRight = false;
 		driveLeft = false;
 		shoot = false;
@@ -181,7 +185,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(final ActionEvent e) {
 		// loop a sample game
-		testRun();
+//		testRun();
+		runGame(level);
 
 		/* start counting for 1 second when true */
 		if (startCount) {
@@ -317,22 +322,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private void clearDeadEnemies() {
 		ArrayList <Enemy> e = new ArrayList<Enemy>();
 		for (Enemy c : game.getDeadEnemies()) {
-//			System.out.println(startTime);
-//			if(c.getDestroyed())
 			game.getEnemies().remove(c);
 				c.incrementCount();
-//			game.getEnemies().remove(c);
 			if(c.getCounting() % 40 == 0) {
 				e.add(c);
 				startCount = false;
 				c.resetCount();
 				game.getEnemies().remove(c);
-//				game.getDeadEnemies().remove(c);
-				System.out.println(game.getEnemies().size());
-				
-//				System.out.println(game.getEnemies().size());
+				System.out.println(game.getEnemies().size());	
 			}
-//			game.getDeadEnemies().clear();
 		}
 		for (Enemy a : e) {
 		game.getDeadEnemies().remove(a);
@@ -440,7 +438,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		
 		if (timeElapsed < NACHOENEMY / 2) {
 			if (count % 100 == 0) {
-				game.spawnEnemy(25);
+				game.spawnEnemy();
 //				generateEnemy();
 			}
 		
@@ -448,13 +446,13 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (timeElapsed >= NACHOENEMY / 2 
 				&& timeElapsed <= NACHOENEMY * 0.8) {
 			if (count % 150 == 0) {
-				game.spawnEnemy(25);
+				game.spawnEnemy();
 //				generateWave();
 			}
 		} else if (timeElapsed > NACHOENEMY * 0.8 
 				&& timeElapsed < NACHOENEMY) {
 			if (count % 300 == 0) {
-				game.spawnEnemy(25);
+				game.spawnEnemy();
 //				generateEnemy();
 			}
 		} else if (timeElapsed >= NACHOENEMY && timeElapsed 
@@ -472,6 +470,25 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		game.spawnBoss();
 	}
 
+	/******************************************************************
+	 * Test Method for level system.
+	 * @param level
+	 *****************************************************************/
+	private void runGame(Level level) {
+		level.run();
+		level.incrementTime();
+		if (level.getSpawnEnemy()) {
+			game.spawnEnemy();
+		}
+//		if (level.getSpawnBoss()) {
+//			game.spawnBoss();
+//		}
+		level.manageSpawn();
+		if (level.getTime() >= level.getLevelTime()) {
+			gameOver = true;
+		}
+		System.out.println(level.getTime() / 100);
+	}
 	/******************************************************************
 	 * Testing our source code.
 	 * @param args - the arguments to be passed.

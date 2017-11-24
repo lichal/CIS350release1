@@ -225,7 +225,7 @@ public class Logic extends JPanel {
 	 * @param x
 	 *            - The x coordinate of the enemy.
 	 *****************************************************************/
-	public void spawnEnemy(final int x) {
+	public void spawnEnemy() {
 		enemies.add(new Enemy(1));
 	}
 
