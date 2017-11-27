@@ -55,7 +55,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
-	private int FIRERATE = 50;
+	private int FIRERATE = 20;
 
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
@@ -232,6 +232,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 * actionPerformed is called.
 		 */
 		game.detectCollisions();
+		
+		if (game.getHealth() <= 0)
+			gameOver = true;
 
 		/*
 		 * incrementing fire and count to control fire rate 
