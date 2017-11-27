@@ -30,11 +30,19 @@ public class Logic extends JPanel {
 	private BackGround background;
 	/** The boss in the game. */
 	private TacoBoss boss;
+	/** Number of enemy destroyed */
+	private int numEnemyDestroyed;
+	/** Number of enemy missed */
+	private int enemyMissed;
 
 	/******************************************************************
 	 * The constructor for Logic.
 	 *****************************************************************/
 	public Logic() {
+		
+		/** initialize the number of enemy destroy and miss */
+		numEnemyDestroyed = 0;
+		enemyMissed = 0;
 
 		tables = new ArrayList<Table>();
 
@@ -60,6 +68,24 @@ public class Logic extends JPanel {
 	 *****************************************************************/
 	public BackGround getBackGround() {
 		return background;
+	}
+	
+	/*****************************************************************
+	 * This method returns the number of enemy destroyed by player
+	 * 
+	 * @return numEnemyDestroyed - the number of enemy destroyed
+	 *****************************************************************/
+	public int getNumEnemyDestroyed(){
+		return numEnemyDestroyed;
+	}
+	
+	/*****************************************************************
+	 * This method returns the number of enemy player missed
+	 * 
+	 * @return numEnemyDestroyed - the number of enemy missed
+	 *****************************************************************/
+	public int getEnemyMissed(){
+		return enemyMissed;
 	}
 
 	/*****************************************************************
@@ -191,6 +217,8 @@ public class Logic extends JPanel {
 			if (e.getY() >= Scaler.height - ship.getHeight() - e.getHeight()) {
 				e.setHealth(e.getHealth()-e.getHealth());
 				deadEnemies.add(e);
+				// add one for every enemy miss
+				enemyMissed++;
 				e.doLogic();
 			}
 
@@ -207,12 +235,15 @@ public class Logic extends JPanel {
 
 					// check health, add dead enemy to the array
 					if (e.getHealth() == 0) {
-//						if(!e.getDestroyed()) {
-							spentProjectiles.add(p);
-//						}
+						// if(!e.getDestroyed()) {
+						spentProjectiles.add(p);
+
+						// }
+						// add one to every enemy destroy
+						numEnemyDestroyed++;
 						deadEnemies.add(e);
 						e.doLogic();
-						
+
 					}
 				}
 			}

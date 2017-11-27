@@ -55,7 +55,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
-	private static final int FIRERATE = 30;
+	private int FIRERATE = 50;
 
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
@@ -72,6 +72,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** The level the player is on */
 	private Level level;
 	
+	/** Slow motion effect on */
+	private boolean slowMotion;
+	
+	/** Fast shooting effect on */
+	private boolean fastShooting;
+	
+	/** Game Score */
+	private int score;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
@@ -84,6 +93,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		gameOver = false;
 		gamePaused = false;
 		startCount = false;
+		slowMotion = false;
+		fastShooting = false;
 
 		/* instantiating a new random */
 		rand = new Random();
@@ -100,6 +111,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		count = 0;
 		timeElapsed = 0;
 		startTime = 0;
+		score = 0;
 
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
@@ -229,6 +241,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		fire++;
 		timeElapsed++;
 		
+		/*
+		 * Checks if special effect is on
+		 */
+		fastShooting();
+		slowMotion();
 		
 		/* repainting graphics */
 		repaint();
@@ -469,7 +486,46 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private void generateBoss() {
 		game.spawnBoss();
 	}
+	
+	/*******************************************************************
+	 * Special effect, fast shooting
+	 ******************************************************************/
+	private void fastShooting(){
+		while (fastShooting) {
+			FIRERATE = FIRERATE/2;
+		}
+	}
+	
+	/*******************************************************************
+	 * Special effect, slow motion on enemy
+	 ******************************************************************/
+	private void slowMotion() {
+		while (slowMotion) {
+			game.getShip().setVelX(game.getShip().getVelX() * 2);
 
+			for (Projectile p : game.getProjectiles()) {
+				p.setVelY(p.getVelY() * 2);
+			}
+
+			for (Enemy e : game.getEnemies()) {
+				e.setVelY(e.getVelY() / 2);
+			}
+		}
+	}
+	
+	/*******************************************************************
+	 * This method calculate the game score and returns it.
+	 * 
+	 * @return score - current game score
+	 ******************************************************************/
+	private int calculateScore(){
+		int destroy = game.getNumEnemyDestroyed();
+		int miss = game.getEnemyMissed();
+		score =  destroy - miss;
+		
+		return score;
+	}
+	
 	/******************************************************************
 	 * Test Method for level system.
 	 * @param level
@@ -489,6 +545,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 		System.out.println(level.getTime() / 100);
 	}
+	
 	/******************************************************************
 	 * Testing our source code.
 	 * @param args - the arguments to be passed.
