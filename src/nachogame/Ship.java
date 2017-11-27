@@ -7,7 +7,9 @@ package nachogame;
  * @author Cheng Li
  * @author Ryan Bassor
  * @version 10-24-2017
+ *
  *********************************************************************/
+// ALSFdjlasdjf;lasjdf;lajs;dlfjas;ldfja;sldkjf
 public class Ship extends SpaceObject {
 
 	/** The velocity when ship is stopped. */
