@@ -34,6 +34,8 @@ public class Logic extends JPanel {
 	private int numEnemyDestroyed;
 	/** Number of enemy missed */
 	private int enemyMissed;
+	
+	private int health;
 
 	/******************************************************************
 	 * The constructor for Logic.
@@ -47,6 +49,7 @@ public class Logic extends JPanel {
 		tables = new ArrayList<Table>();
 
 		setInitialTables();
+		health = 5;
 
 		background = new BackGround();
 
@@ -209,12 +212,13 @@ public class Logic extends JPanel {
 	public void detectCollisions() {
 		for (Enemy e : enemies) {
 			
-			if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
+			if (e.getY() <= Scaler.height + ship.getHeight() ) {
 				e.setY(e.getY() + e.getVelY());
 			}
 			
 //			 determine if enemy collide with the ship
-			if (e.getY() >= Scaler.height - ship.getHeight() - e.getHeight()) {
+			if (e.getY() >= Scaler.height) {
+				health--;
 				e.setHealth(e.getHealth()-e.getHealth());
 				deadEnemies.add(e);
 				// add one for every enemy miss
@@ -323,6 +327,10 @@ public class Logic extends JPanel {
 	 *****************************************************************/
 	public void moveShip() {
 		getShip().setX(getShip().getX() + getShip().getVelx());
+	}
+	
+	public int getHealth() {
+		return health;
 	}
 
 }

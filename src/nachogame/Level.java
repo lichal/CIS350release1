@@ -46,7 +46,7 @@ public class Level {
 		case LEVEL1 :
 			levelTime = oneMinute;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 400 == 0) {
+				if (timeElapsed % 300 == 0) {
 					spawnEnemy = true;
 				}
 				}
@@ -54,7 +54,7 @@ public class Level {
 		case LEVEL2 :
 			levelTime = minuteAndHalf;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 300 == 0) {
+				if (timeElapsed % 270 == 0) {
 					spawnEnemy = true;
 				}
 				}
@@ -62,7 +62,7 @@ public class Level {
 		case LEVEL3 :
 			levelTime = minuteAndHalf;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 300 == 0) {
+				if (timeElapsed % 240 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 7000 == 0) {
@@ -74,7 +74,7 @@ public class Level {
 		case LEVEL4 :
 			levelTime = minuteAndHalf;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 350 == 0) {
+				if (timeElapsed % 190 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 3000 == 0) {
@@ -86,7 +86,7 @@ public class Level {
 		case LEVEL5 :
 			levelTime = twoMinutes;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 250 == 0) {
+				if (timeElapsed % 170 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 7000 == 0) {
@@ -98,7 +98,7 @@ public class Level {
 		case LEVEL6 :
 			levelTime = twoMinutes;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 250 == 0) {
+				if (timeElapsed % 125 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 4000 == 0) {
@@ -110,7 +110,7 @@ public class Level {
 		case LEVEL7 :
 			levelTime = twoMinutes;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 200 == 0) {
+				if (timeElapsed % 100 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 4000 == 0) {
@@ -122,7 +122,7 @@ public class Level {
 		case LEVEL8 :
 			levelTime = twoMinutes;
 			if (timeElapsed < levelTime - paddingTime) {
-				if (timeElapsed % 175 == 0) {
+				if (timeElapsed % 75 == 0) {
 					spawnEnemy = true;
 				}
 				if (timeElapsed % 3000 == 0) {
