@@ -517,7 +517,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	/*******************************************************************
-	 * This method calculate the game score and returns it.
+	 * This method calculates the game score and returns it.
 	 * 
 	 * @return score - current game score
 	 ******************************************************************/
