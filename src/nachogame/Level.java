@@ -7,7 +7,8 @@ package nachogame;
 public class Level {
 	/** The length of time of the level. */
 	private int levelTime;
-	
+	/** Tells whether
+	private boolean completed;
 	/** The amount of time elapsed in level. */
 	private int timeElapsed;
 	

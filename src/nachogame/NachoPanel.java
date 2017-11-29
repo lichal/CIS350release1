@@ -81,12 +81,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private JFrame j;
 	
+	private Player player;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
-	public NachoPanel() {
+	public NachoPanel(Player player) {
 		/* instantiating all key driven booleans as false */
 		level = new Level(LevelNum.LEVEL8);
+		this.player = player;
 		driveRight = false;
 		driveLeft = false;
 		shoot = false;
@@ -547,6 +550,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * @param args - the arguments to be passed.
 	 *****************************************************************/
 	public static void main(final String[] args) {
-		new NachoPanel();
+//		NachoFrame n = new NachoFrame();
+		NachoPanel p = new NachoPanel(new Player());
+//		n.setContentPane(p);
 	}
 }
