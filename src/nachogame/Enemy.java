@@ -27,6 +27,8 @@ public class Enemy extends SpaceObject {
 
 	/** The rectangle for shoot determine a collision. */
 	private Rectangle shoot = new Rectangle();
+	
+	private boolean shot;
 
 	/*****************************************************************
 	 * This is the constructor for Enemy.
@@ -42,7 +44,7 @@ public class Enemy extends SpaceObject {
 		setX(r.nextInt(Scaler.width - getWidth()));
 		setY(-getHeight());
 		velY = (int) Math.ceil(Scaler.height/ 400);
-		
+		shot = false;
 		counting = 0;
 	}
 
@@ -134,6 +136,14 @@ public class Enemy extends SpaceObject {
 	
 	public void resetCount() {
 		counting = 0;
+	}
+	
+	public boolean getShot() {
+		return shot;
+	}
+	
+	public void setShot() {
+		shot = true;
 	}
 }
 

@@ -230,6 +230,7 @@ public class Logic extends JPanel {
 
 				// determine if the shot hits the enemy
 				if (e.collide(p)) {
+					e.setShot();
 					// enemy health minus projectile damage
 					if (e.getHealth() > 0) {
 						// add spent projectile to the array

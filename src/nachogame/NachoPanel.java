@@ -56,7 +56,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
-	private int FIRERATE = 20;
+	private int fireRate = 20;
 
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
@@ -81,9 +81,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private JFrame j;
 	
-
 	private Player player;
-
+	
 	private GamePause gamePaused;
 	
 	/** Color for the statistic Panel */
@@ -131,15 +130,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
 		setFocusable(true);
-
-		j = new JFrame("SPACE ROCK NACHO");
-		j.addKeyListener(this);
-		j.setSize(Scaler.width, Scaler.height+22);
+//
+//		j = new JFrame("SPACE ROCK NACHO");
+//		j.addKeyListener(this);
+//		j.setSize(Scaler.width, Scaler.height+22);
 //		j.setExtendedState(JFrame.MAXIMIZED_BOTH);	// This would set the screen size to max always, conflicted with setSize()
-		j.setUndecorated(true); // This would set the game panel to full screen
-		j.add(this);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setVisible(true);
+//		j.setUndecorated(true); // This would set the game panel to full screen
+//		j.add(this);
+//		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		j.setVisible(true);
 	}
 
 	/**********************************************************************
@@ -175,18 +174,18 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		/* displaying when ship is ready to fire again */
-		if (fire >= FIRERATE) {
+		if (fire >= fireRate) {
 			g.setColor(Color.GREEN);
-			g.fillRect(10, Scaler.height - 10 - FIRERATE * 4, 10, FIRERATE * 4);
+			g.fillRect(10, Scaler.height - 10 - fireRate * 4, 10, fireRate * 4);
 
 		/* displays when ship is not ready to fire */
 		} else {
-			if (fire <= FIRERATE / 2) {
+			if (fire <= fireRate / 2) {
 				g.setColor(Color.RED);
 			}
 			g.fillRect(10, Scaler.height - 10 - fire * 4, 10, fire * 4);
 		}
-		g.drawRect(10, Scaler.height - 10 - FIRERATE * 4, 10, FIRERATE * 4);
+		g.drawRect(10, Scaler.height - 10 - fireRate * 4, 10, fireRate * 4);
 
 		/* Stop the game if the game is over */
 		if (gameOver) {
@@ -202,6 +201,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/*  */
 		g.setColor(Color.GRAY);
 		g.drawString("Level Ranking: " + levelRank, Scaler.width/6 * 5, 10);
+		g.drawString("XP " + player.getXP(), Scaler.width/6 * 5, 50);
 	}
 
 	/******************************************************************
@@ -212,6 +212,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 ******************************************************************/
 	@Override
 	public void actionPerformed(final ActionEvent e) {
+		fireRate = player.getFireRate();
 		// loop a sample game
 //		testRun();
 		runGame(level);
@@ -248,8 +249,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 * actionPerformed is called.
 		 */
 		game.detectCollisions();
-		
-		if (game.getHealth() <= 0)
+//		
+		if (player.getXP() <= 0)
 			gameOver = true;
 
 		/*
@@ -365,6 +366,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				e.add(c);
 				startCount = false;
 				c.resetCount();
+				if (c.getShot())
+					player.incrementXP();
+				else
+					player.decrementXP();
 				game.getEnemies().remove(c);
 				System.out.println(game.getEnemies().size());	
 			}
@@ -405,7 +410,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		// checking spacebar
 		if (shoot) {
-			if (fire >= FIRERATE) {
+			if (fire >= fireRate) {
 				game.getProjectiles().add(new Projectile(game.getShip()));
 				fire = 0;
 			}
@@ -512,7 +517,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 ******************************************************************/
 	private void fastShooting(){
 		while (fastShooting) {
-			FIRERATE = FIRERATE/2;
+			fireRate = fireRate/2;
 		}
 	}
 	
@@ -563,7 +568,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		if (level.getTime() >= level.getLevelTime()) {
 			gameOver = true;
 		}
-		System.out.println(level.getTime() / 100);
+	
 	}
 	
 	/******************************************************************
@@ -571,11 +576,20 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * @param args - the arguments to be passed.
 	 *****************************************************************/
 	public static void main(final String[] args) {
-		JFrame n = new JFrame();
-		NachoPanel p = new NachoPanel(new Player());
-		n.add(p);
-		n.setContentPane(p);
+		NachoFrame n = new NachoFrame();
+		n.setVisible(true);
+		NachoPanel p = new NachoPanel(n.getPlayer());
+		n.setView(p);
+		n.setVisible(true);
 		n.pack();
 		
+		
+//		j = new JFrame("SPACE ROCK NACHO");
+		n.addKeyListener(p);
+		n.setSize(Scaler.width, Scaler.height+22);
+		
+		n.add(p);
+		n.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		n.setVisible(true);
 	}
 }

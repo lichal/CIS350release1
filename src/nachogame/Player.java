@@ -51,14 +51,27 @@ public class Player {
 			fireRate = 45;
 		}
 		
-		else if (xp > 50) {
+		else  {
 			rank = Rank.CRUMBS;
 			fireRate = 50;
-		}		
+		}
+		
 		return rank;
 	}
 	
 	public int getFireRate() {
 		return fireRate;
+	}
+	
+	public int getXP() {
+		return xp;
+	}
+	
+	public void incrementXP() {
+		xp++;
+	}
+	
+	public void decrementXP() {
+		xp -= 5;
 	}
 }
