@@ -81,7 +81,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private JFrame j;
 	
+
 	private Player player;
+
+	private GamePause gamePaused;
+	
+	/** Color for the statistic Panel */
+	private Color statColor;
+	
+	private int levelRank;
 	
 	/*******************************************************************
 	 * The game panel for our nacho game.
@@ -98,6 +106,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		slowMotion = false;
 		fastShooting = false;
 
+		gamePaused = new GamePause(j);
+		
 		/* instantiating a new random */
 		rand = new Random();
 
@@ -114,6 +124,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		timeElapsed = 0;
 		startTime = 0;
 		score = 0;
+		
+		/* instantiate the statistic panel with color reddish and alpha 0.5*/
+		statColor = new Color(1, 0, 0, 0.5f);
 
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
@@ -181,6 +194,14 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 					this.getHeight() / 2);
 			tmr.stop();
 		}
+		
+		/*  */
+		g.setColor(statColor);
+		g.fillRect(Scaler.width/6 * 5, 0, Scaler.width/6, Scaler.height/6);
+	
+		/*  */
+		g.setColor(Color.GRAY);
+		g.drawString("Level Ranking: " + levelRank, Scaler.width/6 * 5, 10);
 	}
 
 	/******************************************************************
@@ -289,8 +310,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* Pause the the game if player press Escape key */
 		if (c == KeyEvent.VK_ESCAPE) {
 			tmr.stop();
-			GamePause newPause = new GamePause(j);
-			if(newPause.getResumed()){
+			gamePaused.setVisible(true);
+			if(gamePaused.getResumed()){
 				tmr.restart();
 			}
 		}
@@ -550,8 +571,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * @param args - the arguments to be passed.
 	 *****************************************************************/
 	public static void main(final String[] args) {
-//		NachoFrame n = new NachoFrame();
+		JFrame n = new JFrame();
 		NachoPanel p = new NachoPanel(new Player());
-//		n.setContentPane(p);
+		n.add(p);
+		n.setContentPane(p);
+		n.pack();
+		
 	}
 }

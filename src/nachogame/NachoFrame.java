@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class NachoFrame extends JFrame {
 	private Player player;
-	public NachoFrame() {
+	public NachoFrame(NachoPanel n) {
 		player = new Player();
 		
 	}

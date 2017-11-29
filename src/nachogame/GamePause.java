@@ -51,7 +51,7 @@ public class GamePause extends JDialog implements ActionListener {
 		setUndecorated(true);
 		pack();
 		setLocationRelativeTo(parent);
-		setVisible(true);
+		setVisible(false);
 	}
 
 	public boolean getResumed() {
