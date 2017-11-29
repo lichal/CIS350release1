@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -81,6 +82,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Game Score */
 	private int score;
 	
+	private JFrame j;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
@@ -112,12 +115,14 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		timeElapsed = 0;
 		startTime = 0;
 		score = 0;
+		
+		
 
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
 		setFocusable(true);
 
-		JFrame j = new JFrame("SPACE ROCK NACHO");
+		j = new JFrame("SPACE ROCK NACHO");
 		j.addKeyListener(this);
 		j.setSize(Scaler.width, Scaler.height+22);
 //		j.setExtendedState(JFrame.MAXIMIZED_BOTH);	// This would set the screen size to max always, conflicted with setSize()
@@ -293,10 +298,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		if (c == KeyEvent.VK_ESCAPE) {
 			gamePaused = true;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			gamePaused = false;
-			tmr.restart();
+			GamePause newPause = new GamePause(j);
+			if(newPause.getResumed()){
+				gamePaused = false;
+				tmr.restart();
+			}
 		}
 	}
 
