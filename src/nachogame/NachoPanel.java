@@ -67,9 +67,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Determine if the player is playing the game. */
 	private boolean gameOver;
 
-	/** Determine if user paused the game or not. */
-	private boolean gamePaused;
-
 	/** The level the player is on */
 	private Level level;
 	
@@ -94,7 +91,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		driveLeft = false;
 		shoot = false;
 		gameOver = false;
-		gamePaused = false;
 		startCount = false;
 		slowMotion = false;
 		fastShooting = false;
@@ -115,8 +111,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		timeElapsed = 0;
 		startTime = 0;
 		score = 0;
-		
-		
 
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
@@ -181,13 +175,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* Stop the game if the game is over */
 		if (gameOver) {
 			g.drawString("Game Over!", this.getWidth() / 2,
-					this.getHeight() / 2);
-			tmr.stop();
-		}
-
-		/* Pause the the game if player press Escape key */
-		if (gamePaused) {
-			g.drawString("Game Paused!", this.getWidth() / 2,
 					this.getHeight() / 2);
 			tmr.stop();
 		}
@@ -296,11 +283,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 			shoot = true;
 		}
 
+		/* Pause the the game if player press Escape key */
 		if (c == KeyEvent.VK_ESCAPE) {
-			gamePaused = true;
+			tmr.stop();
 			GamePause newPause = new GamePause(j);
 			if(newPause.getResumed()){
-				gamePaused = false;
 				tmr.restart();
 			}
 		}
