@@ -22,10 +22,12 @@ public class GamePause extends JDialog implements ActionListener {
 	/** Quit the game */
 	private JButton quitButton;
 
+	/** Boolean determine if the game is resumed */
 	private boolean resumed;
 
 	public GamePause(JFrame parent) {
 		super(parent, true);
+		super.getContentPane().setBackground(Color.blue);
 
 		// initialize resume with false
 		resumed = false;
@@ -47,7 +49,7 @@ public class GamePause extends JDialog implements ActionListener {
 		resumeButton.addActionListener(this);
 		quitButton.addActionListener(this);
 
-		this.setBackground(Color.BLUE);
+		// set dialog information
 		setUndecorated(true);
 		pack();
 		setLocationRelativeTo(parent);
