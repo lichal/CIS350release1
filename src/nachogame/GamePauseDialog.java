@@ -15,6 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+/*******************************************************************
+ * This class modifies the JDialog, make the appearance of the 
+ * dialog more attracting, and format buttons and labels.
+ * 
+ * @author Cheng Li
+ *@version 11-30-2017
+ ******************************************************************/
 public class GamePauseDialog extends JDialog implements ActionListener {
 
 	/** Message when game is paused */
