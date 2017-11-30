@@ -31,7 +31,7 @@ public class NachoFrame extends JPanel implements ActionListener {
 		mainFrame.setSize(Scaler.width, Scaler.height);
 		mainFrame.add(this);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setVisible(true);
+		mainFrame.setVisible(false);
 	}
 	
 	public Player getPlayer() {

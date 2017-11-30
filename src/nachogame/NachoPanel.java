@@ -83,7 +83,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private Player player;
 	
-	private GamePause gamePaused;
+	private GamePauseDialog gamePaused;
 	
 	/** Color for the statistic Panel */
 	private Color statColor;
@@ -111,7 +111,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		slowMotion = false;
 		fastShooting = false;
 
-		gamePaused = new GamePause(j);
+		gamePaused = new GamePauseDialog(j);
 		
 		/* instantiating a new random */
 		rand = new Random();
