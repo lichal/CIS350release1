@@ -18,7 +18,6 @@ public class NachoFrame extends JPanel implements ActionListener {
 	
 	private JButton startButton;
 	
-	
 	public NachoFrame() {
 		
 		startButton = new JButton("startGame");
@@ -27,6 +26,7 @@ public class NachoFrame extends JPanel implements ActionListener {
 		player = new Player();
 		
 		add(startButton);
+		
 		mainFrame = new JFrame("SPACE ROCK NACHO");
 		mainFrame.setSize(Scaler.width, Scaler.height);
 		mainFrame.add(this);
@@ -37,13 +37,26 @@ public class NachoFrame extends JPanel implements ActionListener {
 	public Player getPlayer() {
 		return player;
 	}
+
+	public void newGame() {
+		// if player's xp is less then 0
+		if (player.getXP() <= 0) {
+			//start the new game with initial xp of 10
+			player.setXP(10);
+		}
+		nachoGame = new NachoPanel(mainFrame, player, this);
+		mainFrame.add(nachoGame);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == startButton) {
-			nachoGame = new NachoPanel(mainFrame, player);
-			mainFrame.add(nachoGame);
-			startButton.setVisible(false);
+			
+			// make a new nacho game
+			newGame();
+			
+			// set main panel visible to false when the game start
+			setVisible(false);
 		}
 	}
 

@@ -7,13 +7,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 /*******************************************************************
  * This class modifies the JDialog, make the appearance of the 
@@ -22,21 +20,26 @@ import javax.swing.border.LineBorder;
  * @author Cheng Li
  *@version 11-30-2017
  ******************************************************************/
-public class GamePauseDialog extends JDialog implements ActionListener {
+public class MyDialog extends JDialog implements ActionListener {
 
-	/** Message when game is paused */
-	private JLabel resumeMessage;
+	/** Message of the dialog */
+	private JLabel messageLabel;
 
-	/** Resume the game */
-	private MyButton resumeButton;
+	/** Left button of the dialog */
+	private MyButton leftButton;
 
-	/** Quit the game */
-	private MyButton quitButton;
+	/** Right button of the dialog */
+	private MyButton rightButton;
 
 	/** Boolean determine if the game is resumed */
 	private boolean resumed;
 	
-	/** The JPanel holds resume and quit button */
+	/** Boolean determine if the game is restart */
+	private boolean restart;
+	
+	private boolean backToMain;
+	
+	/** The JPanel holds left and right button */
 	private JPanel buttonPanel;
 	
 	/** The JPanel holds message */
@@ -44,19 +47,27 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 	
 	/** Background color use for the dialog */
 	private Color backColor;
-
+	
+	/** Determines which dialog I'm using */
+	private String dialogStat;
+	
 	/*******************************************************************
 	 * This is the JDialog for game pause
 	 * @param parent - the parent JFrame
 	 ******************************************************************/
-	public GamePauseDialog(JFrame parent) {
+	public MyDialog(JFrame parent, String message, String leftButtonText, String rightButtonText) {
 		super(parent, true);
-
+		
+		// set the message so we know which dialog it is
+		dialogStat = message;
+		
 		// instantiate a color for the dialog
 		backColor = new Color(1, 0, 0, 0.3f);
 	
-		// initialize resume with false
+		// initialize all boolean to false
 		resumed = false;
+		restart = false;
+		backToMain = false;
 		
 		// initialize a new JPanel to hold buttons and a message panel
 		buttonPanel = new JPanel();
@@ -67,31 +78,31 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 		buttonPanel.setLayout(new GridLayout(1, 2));
 
 		// instantiates the JLabel, and JButtons
-		resumeMessage = new JLabel("Game Paused");
-		resumeButton = new MyButton("Resume");
-		quitButton = new MyButton("Quit");
+		messageLabel = new JLabel(message);
+		leftButton = new MyButton(leftButtonText);
+		rightButton = new MyButton(rightButtonText);
 		
 		// set message alignment and font
-		resumeMessage.setHorizontalAlignment(JLabel.CENTER);
-		resumeMessage.setFont(new Font("Serif", Font.BOLD, 25));
+		messageLabel.setHorizontalAlignment(JLabel.CENTER);
+		messageLabel.setFont(new Font("Serif", Font.BOLD, 25));
 
 		// set Layout
 		setLayout(new GridLayout(2, 1));
 		
 		// add message to message panel
-		messagePanel.add(resumeMessage);
+		messagePanel.add(messageLabel);
 		
 		// Add buttons to the JPanel
-		buttonPanel.add(quitButton);
-		buttonPanel.add(resumeButton);
+		buttonPanel.add(leftButton);
+		buttonPanel.add(rightButton);
 		
 		// Add all components
 		add(messagePanel);
 		add(buttonPanel);
 
 		// add listener
-		resumeButton.addActionListener(this);
-		quitButton.addActionListener(this);
+		leftButton.addActionListener(this);
+		rightButton.addActionListener(this);
 
 		// set the background color for the button panel
 		buttonPanel.getRootPane().setBackground(backColor);
@@ -129,32 +140,54 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 		return resumed;
 	}
 
+	public void setResumed(boolean resumed) {
+		this.resumed = resumed;
+	}
+	
+	public boolean getRestart(){
+		return restart;
+	}
+	
+	public void setRestart(boolean restart) {
+		this.restart = restart;
+	}
+	
+	public boolean getBackToMain(){
+		return backToMain;
+	}
+	
+	public void setBackToMain(boolean backToMain) {
+		this.backToMain = backToMain;
+	}
+
 	/*******************************************************************
 	 * The action performed class, checks for the button pressed
 	 * @param e - action event of player
 	 ******************************************************************/
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == resumeButton) {
-			resumed = true;
-			dispose();
-		}
-		if (e.getSource() == quitButton) {
-			// what is displayed on the dialog
-			Object[] message = { "Quit Game?" };
-
-			int option = JOptionPane.showConfirmDialog(null, message, "Game Quit", JOptionPane.OK_CANCEL_OPTION);
-
-			// close the dialog either if cancel and x is clicked
-			if (option == JOptionPane.CANCEL_OPTION)
-				System.out.println("Quit Canceled");
-			else if (option == JOptionPane.CLOSED_OPTION)
-				System.out.println("Quit Canceled");
-			// Quit the game
-			else if (option == JOptionPane.OK_OPTION) {
-				System.exit(1);
+		if (dialogStat == "Game Paused") {
+			if (e.getSource() == rightButton) {
+				resumed = true;
+				dispose();
+			}
+			if (e.getSource() == leftButton) {
+				backToMain = true;
+				dispose();
 			}
 		}
+		
+		if (dialogStat == "Game Over") {
+			if (e.getSource() == rightButton) {
+				restart = true;
+				dispose();
+			}
+			if (e.getSource() == leftButton) {
+				backToMain = true;
+				dispose();
+			}
+		}
+		
 	}
 
 }

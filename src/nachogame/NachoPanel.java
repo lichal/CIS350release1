@@ -1,6 +1,7 @@
 package nachogame;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.Timer;
  * 
  * @author Jon DeWent
  * @author Cheng Li
+ * @author Ryan Bassor
  * @version 10-13-2017
  *********************************************************************/
 public class NachoPanel extends JPanel implements ActionListener, KeyListener {
@@ -79,11 +81,13 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Game Score */
 	private int score;
 	
-	private JFrame j;
+//	private JFrame j;
 	
 	private Player player;
 	
-	private GamePauseDialog gamePaused;
+	private MyDialog gamePausedDialog;
+	
+	private MyDialog gameOverDialog;
 	
 	/** Color for the statistic Panel */
 	private Color statColor;
@@ -96,10 +100,12 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private int actualWidth;
 	
+	private NachoFrame mainPanel;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
-	public NachoPanel(JFrame parent, Player player) {
+	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel) {
 		/* instantiating all key driven booleans as false */
 		level = new Level(LevelNum.LEVEL8);
 		this.player = player;
@@ -111,7 +117,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		slowMotion = false;
 		fastShooting = false;
 
-		gamePaused = new GamePauseDialog(j);
+		this.mainPanel = mainPanel;
+		gamePausedDialog = new MyDialog(parent, "Game Paused", "Quit", "Resume");
+		gameOverDialog = new MyDialog(parent, "Game Over", "Main Menu", "Restart");
 		
 		/* instantiating a new random */
 		rand = new Random();
@@ -181,13 +189,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 			g.fillRect(10, Scaler.height - 10 - fire * 4, 10, fire * 4);
 		}
 		g.drawRect(10, Scaler.height - 10 - fireRate * 4, 10, fireRate * 4);
-
-		/* Stop the game if the game is over */
-		if (gameOver) {
-			g.drawString("Game Over!", this.getWidth() / 2,
-					this.getHeight() / 2);
-			tmr.stop();
-		}
 		
 		/*  */
 		g.setColor(statColor);
@@ -198,6 +199,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Level Ranking: " + levelRank, Scaler.width/6 * 5, 10);
 		g.drawString("XP " + player.getXP(), Scaler.width/6 * 5, 50);
 	}
+	
+	private void goToMain(){
+		setVisible(false);
+		mainPanel.setVisible(true);
+	}
 
 	/******************************************************************
 	 * This is the actionPerformed method that fires every time the 
@@ -207,6 +213,21 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 ******************************************************************/
 	@Override
 	public void actionPerformed(final ActionEvent e) {
+		/* Stop the game if the game is over */
+		if (gameOver) {
+			tmr.stop();
+			gameOverDialog.setVisible(true);
+			if(gameOverDialog.getRestart()){
+				gameOver = false;
+				gameOverDialog.setRestart(false);
+				setVisible(false);
+				mainPanel.newGame();
+			}if(gameOverDialog.getBackToMain()){
+				gameOverDialog.setBackToMain(false);
+				goToMain();
+			}
+		}
+		
 		fireRate = player.getFireRate();
 		// loop a sample game
 //		testRun();
@@ -306,9 +327,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* Pause the the game if player press Escape key */
 		if (c == KeyEvent.VK_ESCAPE) {
 			tmr.stop();
-			gamePaused.setVisible(true);
-			if(gamePaused.getResumed()){
+			
+			// set the game pause dialog to visible
+			gamePausedDialog.setVisible(true);
+			if(gamePausedDialog.getResumed()){
 				tmr.restart();
+				gamePausedDialog.setResumed(false);
+			} else if(gamePausedDialog.getBackToMain()){
+				gamePausedDialog.setBackToMain(false);
+				goToMain();
 			}
 		}
 	}

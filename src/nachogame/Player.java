@@ -67,6 +67,10 @@ public class Player {
 		return xp;
 	}
 	
+	public void setXP(int xp) {
+		this.xp = xp;
+	}
+	
 	public void incrementXP() {
 		xp++;
 	}

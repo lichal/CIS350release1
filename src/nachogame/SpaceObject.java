@@ -14,22 +14,7 @@ import javax.imageio.ImageIO;
  * @version 10-13-2017
  *********************************************************************/
 public abstract class SpaceObject {
-	public double getAspectRatio() {
-		return aspectRatio;
-	}
-
-	public double getPortion() {
-		return portion;
-	}
-
-	public int getVelX() {
-		return velX;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
-	}
-
+	
 	/** x position of the current instance of entity. */
 	private int x;
 
@@ -98,6 +83,35 @@ public abstract class SpaceObject {
 
 		velX = 0;
 		velY = 0;
+	}
+	
+	/*******************************************************************
+	 * @return aspectRatio to the screen of the object
+	 ******************************************************************/
+	public double getAspectRatio() {
+		return aspectRatio;
+	}
+
+	/*******************************************************************
+	 * @return portion of the object
+	 ******************************************************************/
+	public double getPortion() {
+		return portion;
+	}
+
+	/*******************************************************************
+	 * @return velx the speed horizontal of the object
+	 ******************************************************************/
+	public int getVelX() {
+		return velX;
+	}
+
+	/*******************************************************************
+	 * Setter for space object image
+	 * @param image - image of the object
+	 ******************************************************************/
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	/*******************************************************************
