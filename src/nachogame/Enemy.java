@@ -74,6 +74,7 @@ public class Enemy extends SpaceObject {
 		destroyed = collide;
 		setImage(getImage().getScaledInstance(
 				getWidth(), (int)(getHeight()*0.7), Image.SCALE_DEFAULT));
+		
 	}
 
 	/*******************************************************************
@@ -101,7 +102,7 @@ public class Enemy extends SpaceObject {
 	 *****************************************************************/
 	@Override
 	public void doLogic() {
-		if (this.getHealth() <= 0) {
+		if (this.getHealth() == 0) {
 			detectDestroyed(true, "Art/explode.png");
 		}
 	}
