@@ -92,6 +92,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	
 	private int levelRank;
 	
+	private int actualHeight;
+	
+	private int actualWidth;
+	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
@@ -140,17 +144,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 *********************************************************************/
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
+		actualHeight = getHeight();
+		actualWidth = getWidth();
+		
 		/* draw the background image */
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
 
-		/* draw the table */
-//		for (Table t : game.getTables()) {
-//			g.drawImage(t.getImage(), t.getX(), t.getY(), this);
-//		}
-
 		/* drawing ship */
 		g.drawImage(game.getShip().getImage(), game.getShip().getX(),
-				game.getShip().getMaxY(), this);
+				actualHeight - game.getShip().getHeight(), this);
 
 		/* drawing projectiles */
 		g.setColor(Color.yellow);
