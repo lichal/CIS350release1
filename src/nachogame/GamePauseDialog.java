@@ -28,10 +28,10 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 	private JLabel resumeMessage;
 
 	/** Resume the game */
-	private JButton resumeButton;
+	private MyButton resumeButton;
 
 	/** Quit the game */
-	private JButton quitButton;
+	private MyButton quitButton;
 
 	/** Boolean determine if the game is resumed */
 	private boolean resumed;
@@ -68,22 +68,12 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 
 		// instantiates the JLabel, and JButtons
 		resumeMessage = new JLabel("Game Paused");
-		resumeButton = new JButton("Resume");
-		quitButton = new JButton("Quit");
+		resumeButton = new MyButton("Resume");
+		quitButton = new MyButton("Quit");
 		
 		// set message alignment and font
 		resumeMessage.setHorizontalAlignment(JLabel.CENTER);
 		resumeMessage.setFont(new Font("Serif", Font.BOLD, 25));
-		
-		// set button format
-		quitButton.setBorder(new LineBorder(Color.BLACK));
-		quitButton.setBackground(backColor);
-		quitButton.setFont(new Font("Serif", Font.PLAIN, 20));
-		quitButton.setForeground(Color.pink);
-		resumeButton.setBorder(new LineBorder(Color.BLACK));
-		resumeButton.setBackground(backColor);
-		resumeButton.setFont(new Font("Serif", Font.PLAIN, 20));
-		resumeButton.setForeground(Color.pink);
 
 		// set Layout
 		setLayout(new GridLayout(2, 1));
@@ -127,6 +117,7 @@ public class GamePauseDialog extends JDialog implements ActionListener {
 		pack();
 		
 		//set location appear
+		setModal(true);
 		setLocationRelativeTo(parent);
 		setVisible(false);
 	}
