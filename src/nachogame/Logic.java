@@ -193,7 +193,6 @@ public class Logic extends JPanel {
 		tables.add(new Table("Art/table.png", 250, 1));
 		tables.add(new Table("Art/table.png", 450, 1));
 		tables.add(new Table("Art/table.png", 650, 1));
-//		System.out.println(tables.size());
 	}
 
 	/*****************************************************************
@@ -212,18 +211,21 @@ public class Logic extends JPanel {
 	public void detectCollisions() {
 		for (Enemy e : enemies) {
 			
-			if (e.getY() <= Scaler.height + ship.getHeight() ) {
+			if (e.getY() <= Scaler.height + ship.getHeight()) {
 				e.setY(e.getY() + e.getVelY());
 			}
-			
-//			 determine if enemy collide with the ship
+
+			// determine if enemy collide with the ship
 			if (e.getY() >= Scaler.height) {
 				health--;
-				e.setHealth(e.getHealth()-e.getHealth());
-				deadEnemies.add(e);
+				e.setHealth(e.getHealth() - e.getHealth());
 				// add one for every enemy miss
-				enemyMissed++;
-				e.doLogic();
+				if(e.getHealth() == 0){
+					enemyMissed++;
+					deadEnemies.add(e);
+					e.doLogic();
+					e.setHealth(e.getHealth()-1);
+				}
 			}
 
 			for (Projectile p : projectiles) {
@@ -240,14 +242,12 @@ public class Logic extends JPanel {
 
 					// check health, add dead enemy to the array
 					if (e.getHealth() == 0) {
-						// if(!e.getDestroyed()) {
 						spentProjectiles.add(p);
-
-						// }
 						// add one to every enemy destroy
 						numEnemyDestroyed++;
 						deadEnemies.add(e);
 						e.doLogic();
+						e.setHealth(e.getHealth()-1);
 
 					}
 				}

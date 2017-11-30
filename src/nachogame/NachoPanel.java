@@ -88,12 +88,14 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Color for the statistic Panel */
 	private Color statColor;
 	
+	private KeyListener key;
+	
 	private int levelRank;
 	
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
-	public NachoPanel(Player player) {
+	public NachoPanel(JFrame parent, Player player) {
 		/* instantiating all key driven booleans as false */
 		level = new Level(LevelNum.LEVEL8);
 		this.player = player;
@@ -130,15 +132,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* adding keyListener and requesting focus */
 		addKeyListener(this);
 		setFocusable(true);
-//
-//		j = new JFrame("SPACE ROCK NACHO");
-//		j.addKeyListener(this);
-//		j.setSize(Scaler.width, Scaler.height+22);
-//		j.setExtendedState(JFrame.MAXIMIZED_BOTH);	// This would set the screen size to max always, conflicted with setSize()
-//		j.setUndecorated(true); // This would set the game panel to full screen
-//		j.add(this);
-//		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		j.setVisible(true);
 	}
 
 	/**********************************************************************
@@ -371,7 +364,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				else
 					player.decrementXP();
 				game.getEnemies().remove(c);
-				System.out.println(game.getEnemies().size());	
 			}
 		}
 		for (Enemy a : e) {
@@ -568,28 +560,28 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		if (level.getTime() >= level.getLevelTime()) {
 			gameOver = true;
 		}
-	
 	}
+	
 	
 	/******************************************************************
 	 * Testing our source code.
 	 * @param args - the arguments to be passed.
 	 *****************************************************************/
-	public static void main(final String[] args) {
-		NachoFrame n = new NachoFrame();
-		n.setVisible(true);
-		NachoPanel p = new NachoPanel(n.getPlayer());
-		n.setView(p);
-		n.setVisible(true);
-		n.pack();
-		
-		
-//		j = new JFrame("SPACE ROCK NACHO");
-		n.addKeyListener(p);
-		n.setSize(Scaler.width, Scaler.height+22);
-		
-		n.add(p);
-		n.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		n.setVisible(true);
-	}
+//	public static void main(final String[] args) {
+//		NachoFrame n = new NachoFrame();
+//		n.setVisible(true);
+//		NachoPanel p = new NachoPanel(n.getPlayer());
+//		n.setView(p);
+//		n.setVisible(true);
+//		n.pack();
+//		
+//		
+////		j = new JFrame("SPACE ROCK NACHO");
+//		n.addKeyListener(p);
+//		n.setSize(Scaler.width, Scaler.height+22);
+//		
+//		n.add(p);
+//		n.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		n.setVisible(true);
+//	}
 }
