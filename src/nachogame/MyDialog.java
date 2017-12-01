@@ -62,8 +62,8 @@ public class MyDialog extends JDialog implements ActionListener {
 		dialogStat = message;
 		
 		// instantiate a color for the dialog
-		backColor = new Color(1, 0, 0, 0.3f);
-//		backColor = new Color(0.05f, 0.05f, 0.05f, 0.3f);
+//		backColor = new Color(1, 0, 0, 0.3f);
+		backColor = new Color(0.05f, 0.05f, 0.05f, 0.3f);
 		
 		// initialize all boolean to false
 		resumed = false;
@@ -87,6 +87,8 @@ public class MyDialog extends JDialog implements ActionListener {
 		messageLabel.setHorizontalAlignment(JLabel.CENTER);
 		//messageLabel.setFont(new Font("Serif", Font.BOLD, 25));
 		messageLabel.setFont(Scaler.font);
+		// set message color to white
+		messageLabel.setForeground(new Color(255, 255, 255));
 
 		// set Layout
 		setLayout(new GridLayout(2, 1));
