@@ -1,6 +1,7 @@
 package nachogame;
 
 import java.awt.AWTError;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 
@@ -18,6 +19,8 @@ public class Scaler {
 	public static int width;
 	/** The height of the object. */
 	public static int height;
+	/** Keep font big enough to read on screen */
+	public static Font font;
 
 	static {
 		try {
@@ -25,6 +28,8 @@ public class Scaler {
 					getScreenSize().getWidth());
 			height = (int) (0.9 * Toolkit.getDefaultToolkit().
 					getScreenSize().getHeight());
+			int fontSize = (int) (0.014 * Scaler.width);
+			font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
 		} catch (AWTError a) {
 			System.out.println("AWTError");
 			System.exit(1);

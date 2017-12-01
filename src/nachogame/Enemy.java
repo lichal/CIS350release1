@@ -102,7 +102,7 @@ public class Enemy extends SpaceObject {
 	 *****************************************************************/
 	@Override
 	public void doLogic() {
-		if (this.getHealth() == 0) {
+		if (this.getHealth() <= 0) {
 			detectDestroyed(true, "Art/explode.png");
 		}
 	}

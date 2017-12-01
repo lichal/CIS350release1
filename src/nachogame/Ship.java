@@ -25,7 +25,7 @@ public class Ship extends SpaceObject {
 	public Ship() {
 		super(1.0, 0.085, "Art/Disgusting_Mustard_Yellow.png");
 		setX(Scaler.width / 2);
-//		setY(getMaxY() + 15);
+		setY(Scaler.height - getHeight());
 		V0 = 0;
 		VL = -Scaler.width/200;
 		VR = Scaler.width/200;

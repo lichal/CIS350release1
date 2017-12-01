@@ -44,8 +44,10 @@ public class MyButton extends JButton{
 		// set button's border and colors and font
 		setBorder(new LineBorder(Color.BLACK));
 		setBackground(normalColor);
-		setFont(new Font("Serif", Font.PLAIN, 20));
+		//setFont(new Font("Serif", Font.PLAIN, 20));
+		setFont(Scaler.font);
 		setForeground(unPressedColor);
+		setFocusable(false);
 
 		// set change listener to respond to click
 		addChangeListener(new ChangeListener() {

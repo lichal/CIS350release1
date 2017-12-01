@@ -21,13 +21,14 @@ public class NachoFrame extends JPanel implements ActionListener {
 	public NachoFrame() {
 		
 		startButton = new JButton("startGame");
+		startButton.setFont(Scaler.font);
 		startButton.addActionListener(this);
 		
 		player = new Player();
 		
 		add(startButton);
 		
-		mainFrame = new JFrame("SPACE ROCK NACHO");
+		mainFrame = new JFrame("SPACE ROCK NACHOS");
 		mainFrame.setSize(Scaler.width, Scaler.height);
 		mainFrame.add(this);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
