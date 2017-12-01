@@ -7,7 +7,7 @@ public class Player {
 	private int fireRate;
 	
 	public Player() {
-		xp = 10;
+		xp = 500;
 		getRank();
 	}
 
@@ -60,6 +60,7 @@ public class Player {
 	}
 	
 	public int getFireRate() {
+		getRank();
 		return fireRate;
 	}
 	
