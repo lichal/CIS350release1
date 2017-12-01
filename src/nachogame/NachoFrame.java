@@ -21,7 +21,7 @@ public class NachoFrame extends JPanel implements ActionListener {
 	
 	public NachoFrame() {
 		
-		startButton = new JButton("startGame");
+		startButton = new JButton("Start Game");
 		startButton.setFont(Scaler.font);
 		startButton.addActionListener(this);
 		
