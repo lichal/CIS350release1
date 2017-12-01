@@ -53,7 +53,7 @@ public class Logic extends JPanel {
 		setInitialTables();
 		health = 5;
 
-		background = new BackGround();
+		background = new BackGround(1);
 
 		ship = new Ship();
 		enemies = new ArrayList<Enemy>();

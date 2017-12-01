@@ -1,6 +1,7 @@
 package nachogame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +48,10 @@ public class NachoFrame extends JPanel implements ActionListener {
 		}
 		nachoGame = new NachoPanel(mainFrame, player, this);
 		mainFrame.add(nachoGame);
+	}
+	
+	public void paintComponent(final Graphics g) {
+		g.drawImage(new BackGround(2).getBack(), 0, 0, this);
 	}
 	
 	@Override
