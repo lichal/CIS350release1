@@ -62,9 +62,9 @@ public class MyDialog extends JDialog implements ActionListener {
 		dialogStat = message;
 		
 		// instantiate a color for the dialog
-		//backColor = new Color(1, 0, 0, 0.3f);
-		backColor = new Color(0.05f, 0.05f, 0.05f, 0.3f);
-	
+		backColor = new Color(1, 0, 0, 0.3f);
+//		backColor = new Color(0.05f, 0.05f, 0.05f, 0.3f);
+		
 		// initialize all boolean to false
 		resumed = false;
 		restart = false;
@@ -113,7 +113,7 @@ public class MyDialog extends JDialog implements ActionListener {
 		// set the background color for the message panel
 		messagePanel.getRootPane().setBackground(backColor);
 		messagePanel.setBackground(backColor);
-		messagePanel.setForeground(new Color(255, 255, 255));
+//		messagePanel.setForeground(new Color(255, 255, 255));
 
 		// set dialog information
 		setUndecorated(true);
@@ -122,10 +122,11 @@ public class MyDialog extends JDialog implements ActionListener {
 		
 		// set the dialog to be transparent
 		getRootPane ().setOpaque (false);
+//		setOpacity(0.3f);
 		
 		// set the background color for the dialog
-		getContentPane ().setBackground (new Color (0, 0, 0, 0));
-		setBackground (new Color (0, 0, 0, 0));
+		getContentPane ().setBackground (backColor);
+		setBackground (backColor);
 		
 		// pack
 		pack();
