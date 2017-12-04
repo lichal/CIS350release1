@@ -105,9 +105,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
-	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel) {
+	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel, LevelNum num) {
 		/* instantiating all key driven booleans as false */
-		level = new Level(LevelNum.LEVEL8);
+		level = new Level(num);
 		this.player = player;
 		driveRight = false;
 		driveLeft = false;
@@ -239,11 +239,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		runGame(level);
 
 		/* start counting for 1 second when true */
-		if (startCount) {
-			startTime++;
-		} else if (!startCount) {
-			startTime = 0;
-		}
+//		if (startCount) {
+//			startTime++;
+//		} else if (!startCount) {
+//			startTime = 0;
+//		}
 
 		/*
 		 * checking which keys are still pressed and calling corresponding
