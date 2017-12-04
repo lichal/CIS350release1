@@ -28,7 +28,7 @@ public class Scaler {
 					getScreenSize().getWidth());
 			height = (int) (0.9 * Toolkit.getDefaultToolkit().
 					getScreenSize().getHeight());
-			int fontSize = (int) (0.014 * Scaler.width);
+			int fontSize = (int) (0.012 * Scaler.width);
 			font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
 		} catch (AWTError a) {
 			System.out.println("AWTError");

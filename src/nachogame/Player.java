@@ -7,11 +7,11 @@ public class Player {
 	private int fireRate;
 	
 	public Player() {
-		xp = 500;
+		xp = 20;
 		getRank();
 	}
 
-	private Rank getRank() {
+	protected Rank getRank() {
 		if(xp > 1000) {
 			rank = Rank.CEO;
 			fireRate = 16;
@@ -59,6 +59,40 @@ public class Player {
 		return rank;
 	}
 	
+	
+	public String rankToString(Rank rank) {
+		switch(rank) {
+		case CRUMBS:
+			return "CRUMBS";
+		
+		case LIMPNACHO:
+			return "LIMPNACHO";
+		
+		case A_CUT_ABOVE_THE_CHEESE:
+			return "A CUT ABOVE THE CHEESE";
+		
+		case NACHO_ASSISTANT:
+			return "NACHO ASSISTANT";
+			
+		case STORE_MANAGER:
+			return "STORE MANAGER";
+			
+		case FRANCHISE_OWNER:
+			return "FRANCHISE OWNER";
+			
+		case DISTRICT_SUPERVISOR:
+			return "DISTRICT SUPERVISOR";
+			
+		case DIRECTOR:
+			return "DIRECTOR";
+			
+		case CEO:
+			return "CEO";
+			
+		default:
+			return "CRUMBS";
+		}
+	}
 	public int getFireRate() {
 		getRank();
 		return fireRate;

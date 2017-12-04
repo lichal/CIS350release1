@@ -201,8 +201,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		//g.drawString("Level Ranking: " + levelRank, Scaler.width / 6 * 5, 10);
 		//g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, 50);
 		int height1 = (int)(Scaler.height * 2 / 100);
+		int height3 = (int)(Scaler.height * 6 / 100);
 		int height2 = (int)(Scaler.height * 10 / 100);
-		g.drawString("Level Ranking: " + levelRank, Scaler.width / 6 * 5, height1);
+		g.drawString("Level Ranking:", Scaler.width / 6 * 5, height1);
+		g.drawString(player.rankToString(player.getRank()),Scaler.width / 6 * 5, height3 );
 		g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, height2);
 		
 	}
