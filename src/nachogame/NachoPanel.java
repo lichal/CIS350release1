@@ -101,13 +101,16 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private int actualWidth;
 
 	private NachoFrame mainPanel;
+	
+	private LevelNum num;
 
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
 	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel, LevelNum num) {
 		/* instantiating all key driven booleans as false */
-		level = new Level(num);
+		this.num = num;
+		level = new Level(this.num);
 		this.player = player;
 		driveRight = false;
 		driveLeft = false;
@@ -226,7 +229,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				gameOver = false;
 				gameOverDialog.setRestart(false);
 				setVisible(false);
-				mainPanel.newGame();
+				mainPanel.newGame(num);
 			}
 			if (gameOverDialog.getBackToMain()) {
 				gameOverDialog.setBackToMain(false);
