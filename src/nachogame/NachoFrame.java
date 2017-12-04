@@ -1,5 +1,6 @@
 package nachogame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -40,7 +41,8 @@ public class NachoFrame extends JPanel implements ActionListener {
 	public NachoFrame() {
 		
 		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(9, 7));
+		buttonPanel.setLayout(new BorderLayout());
+		//buttonPanel.setLayout(new GridLayout(9, 7));
 		
 		startButton = new JButton("Start Game");
 		startButton.setFont(Scaler.font);
@@ -81,8 +83,8 @@ public class NachoFrame extends JPanel implements ActionListener {
 		player = new Player();
 		
 		
-		setLayout(new GridLayout(9, 1));
-		add(startButton);
+		//setLayout(new GridLayout(9, 1));
+//		add(startButton);
 		add(level1);
 		add(level2);
 		add(level3);
