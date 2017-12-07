@@ -270,8 +270,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 */
 		game.checkShipPosition();
 		game.checkProjectileStatus();
-		blinkEffect();
-
+		
 		/* clearing enemies and projectiles that collided */
 		clearSpentProjectiles();
 		clearDeadEnemies();
@@ -419,29 +418,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-	/******************************************************************
-	 * This method makes the explosion blink.
-	 * 
-	 * @param c
-	 *            - The enemy that is exploding.
-	 *****************************************************************/
-	//private void blinkEffect(final Enemy c) {
-	private void blinkEffect() {
-		for (Enemy e : game.getDeadEnemies()) {
-			if ((e.getCounting() >= 0) && (e.getCounting() < 10)) {
-				e.setImage("Art/explode.png");
-			} else if ((e.getCounting() >= 10) && (e.getCounting() < 20)) {
-				e.setImage("Art/Nasty_Nacho_Artwork.png");
-			}
-		}
-		
-	// if (c.getCounting() > 30 && c.getCounting() < 60) {
-	// c.setImage(null);
-	// } else if (c.getCounting() < 100) {
-	// c.doLogic();
-	// }
-	 }
-	// FIXME: Not working right now!
+	
 	/******************************************************************
 	 * This method checks to see which keys are still pressed. If the keys are
 	 * still pressed they continue their action, regardless of what other keys
