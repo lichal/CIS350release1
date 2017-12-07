@@ -51,11 +51,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** This checks the game time elapsed in 0.01 seconds. */
 	private int timeElapsed;
 
-	/** A start time for counting one second. */
-	private int startTime;
-
-	/** A boolean determine if one second counting should start. */
-	private boolean startCount;
+//	/** A start time for counting one second. */
+//	private int startTime;
+//
+//	/** A boolean determine if one second counting should start. */
+//	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
 	private int fireRate;
@@ -71,9 +71,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** The level the player is on */
 	private Level level;
-
-	/** Slow motion effect on */
-	private boolean slowMotion;
 
 	/** Fast shooting effect on */
 	private boolean fastShooting;
@@ -92,13 +89,13 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Color for the statistic Panel */
 	private Color statColor;
 
-	private KeyListener key;
-
-	private int levelRank;
-
-	private int actualHeight;
-
-	private int actualWidth;
+//	private KeyListener key;
+//
+//	private int levelRank;
+//
+//	private int actualHeight;
+//
+//	private int actualWidth;
 
 	private NachoFrame mainPanel;
 	
@@ -116,8 +113,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		driveLeft = false;
 		shoot = false;
 		gameOver = false;
-		startCount = false;
-		slowMotion = false;
+		
 		fastShooting = false;
 
 		this.mainPanel = mainPanel;
@@ -138,7 +134,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		fire = 0;
 		count = 0;
 		timeElapsed = 0;
-		startTime = 0;
+//		startTime = 0;
 		score = 0;
 
 		/* instantiate the statistic panel with color reddish and alpha 0.5 */
@@ -159,8 +155,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		g.setFont(Scaler.font);
-		actualHeight = getHeight();
-		actualWidth = getWidth();
+
 
 		/* draw the background image */
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
@@ -286,13 +281,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		count++;
 		fire++;
 		timeElapsed++;
-
-		/*
-		 * Checks if special effect is on
-		 */
-		fastShooting();
-		slowMotion();
-
+		
+		/* Checks if special effect is on*/
 		/* repainting graphics */
 		repaint();
 		revalidate();
@@ -398,7 +388,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 			c.incrementCount();
 			if (c.getCounting() % 40 == 0) {
 				e.add(c);
-				startCount = false;
+//				startCount = false;
 				c.resetCount();
 				if (c.getShot())
 					player.incrementXP();
@@ -413,20 +403,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-	/******************************************************************
-	 * This method makes the explosion blink.
-	 * 
-	 * @param c
-	 *            - The enemy that is exploding.
-	 *****************************************************************/
-	// private void blinkEffect(final Enemy c) {
-	// if (c.getCounting() > 30 && c.getCounting() < 60) {
-	// c.setImage(null);
-	// } else if (c.getCounting() < 100) {
-	// c.doLogic();
-	// }
-	// }
-	// FIXME: Not working right now!
+
 	/******************************************************************
 	 * This method checks to see which keys are still pressed. If the keys are
 	 * still pressed they continue their action, regardless of what other keys
@@ -455,58 +432,12 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 
-	/*******************************************************************
-	 * This method randomly generates enemy to appear on the screen. 5 cases,
-	 * enemy might appear on 5 different places.
-	 ******************************************************************/
-	private void generateEnemy() {
-		// // generate random numbers
-		// int track = rand.nextInt(5);
-		//
-		// switch (track) {
-		// case 0:
-		// game.spawnEnemy(25);
-		// break;
-		// case 1:
-		// game.spawnEnemy(Scaler.width * 2/5);
-		// break;
-		// case 2:
-		// game.spawnEnemy(Scaler.width * 3/5);
-		// break;
-		// case 3:
-		// game.spawnEnemy(Scaler.width * 4/5);
-		// break;
-		// case 4:
-		// game.spawnEnemy(Scaler.width * 5/5);
-		// break;
-		// default:
-		// break;
-		// }
-	}
+
 
 	/*******************************************************************
 	 * This method generate a wave of enemy on the screen, enemy will appear on
 	 * the middle three tracks.
 	 ******************************************************************/
-	private void generateWave() {
-		// generate random numbers
-		// int track = rand.nextInt(3);
-		//
-		// switch (track) {
-		// case 0:
-		// game.spawnEnemy(225);
-		// break;
-		// case 1:
-		// game.spawnEnemy(425);
-		// break;
-		// case 2:
-		// game.spawnEnemy(625);
-		// break;
-		// default:
-		// break;
-		//
-		// }
-	}
 
 	/*******************************************************************
 	 * This method runs a basic game of the space rock nacho.
@@ -544,31 +475,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		game.spawnBoss();
 	}
 
-	/*******************************************************************
-	 * Special effect, fast shooting
-	 ******************************************************************/
-	private void fastShooting() {
-		while (fastShooting) {
-			fireRate = fireRate / 2;
-		}
-	}
-
-	/*******************************************************************
-	 * Special effect, slow motion on enemy
-	 ******************************************************************/
-	private void slowMotion() {
-		while (slowMotion) {
-			game.getShip().setVelX(game.getShip().getVelX() * 2);
-
-			for (Projectile p : game.getProjectiles()) {
-				p.setVelY(p.getVelY() * 2);
-			}
-
-			for (Enemy e : game.getEnemies()) {
-				e.setVelY(e.getVelY() / 2);
-			}
-		}
-	}
 
 	/*******************************************************************
 	 * This method calculates the game score and returns it.
@@ -594,36 +500,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		if (level.getSpawnEnemy()) {
 			game.spawnEnemy();
 		}
-		// if (level.getSpawnBoss()) {
-		// game.spawnBoss();
-		// }
+
 		level.manageSpawn();
 		if (level.getTime() >= level.getLevelTime()) {
 			gameOver = true;
 		}
 	}
 
-	/******************************************************************
-	 * Testing our source code.
-	 * 
-	 * @param args
-	 *            - the arguments to be passed.
-	 *****************************************************************/
-	// public static void main(final String[] args) {
-	// NachoFrame n = new NachoFrame();
-	// n.setVisible(true);
-	// NachoPanel p = new NachoPanel(n.getPlayer());
-	// n.setView(p);
-	// n.setVisible(true);
-	// n.pack();
-	//
-	//
-	//// j = new JFrame("SPACE ROCK NACHO");
-	// n.addKeyListener(p);
-	// n.setSize(Scaler.width, Scaler.height+22);
-	//
-	// n.add(p);
-	// n.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// n.setVisible(true);
-	// }
 }
