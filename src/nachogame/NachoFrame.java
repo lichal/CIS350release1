@@ -61,7 +61,7 @@ public class NachoFrame extends JPanel implements ActionListener {
 		// This color is for button panel.
 		Color normalColor = new Color(1, 0, 0, 0.3f);
 		// Instantiate the title label and format it.
-		title = new JLabel("SPACE ROCK NACHO");
+		title = new JLabel("SPACE ROCK NACHOS!");
 		title.setFont(new Font("Serif", Font.PLAIN, 50));
 		title.setForeground(Color.WHITE);
 		
