@@ -19,7 +19,7 @@ public class Scaler {
 	public static int width;
 	/** The height of the object. */
 	public static int height;
-	/** Keep font big enough to read on screen */
+	/** Keep font big enough to read on screen. */
 	public static Font font;
 
 	static {
@@ -28,8 +28,8 @@ public class Scaler {
 					getScreenSize().getWidth());
 			height = (int) (0.9 * Toolkit.getDefaultToolkit().
 					getScreenSize().getHeight());
-			int fontSize = (int) (0.014 * Scaler.width);
-			font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
+			int fontSize = (int) (0.012 * Scaler.width);
+		font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
 		} catch (AWTError a) {
 			System.out.println("AWTError");
 			System.exit(1);

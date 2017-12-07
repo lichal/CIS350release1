@@ -58,7 +58,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
-	private int fireRate = 20;
+	private int fireRate;
 
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
@@ -101,13 +101,20 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	//private int actualWidth;
 
 	private NachoFrame mainPanel;
+	
+	private LevelNum num;
 
 	/*******************************************************************
 	 * The game panel for our nacho game.
 	 ******************************************************************/
-	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel) {
+	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel, LevelNum num) {
 		/* instantiating all key driven booleans as false */
+
 		level = new Level(LevelNum.LEVEL1);
+
+		this.num = num;
+		level = new Level(this.num);
+
 		this.player = player;
 		driveRight = false;
 		driveLeft = false;
@@ -198,8 +205,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		//g.drawString("Level Ranking: " + levelRank, Scaler.width / 6 * 5, 10);
 		//g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, 50);
 		int height1 = (int)(Scaler.height * 2 / 100);
+		int height3 = (int)(Scaler.height * 6 / 100);
 		int height2 = (int)(Scaler.height * 10 / 100);
-		g.drawString("Level Ranking: " + levelRank, Scaler.width / 6 * 5, height1);
+		g.drawString("Level Ranking:", Scaler.width / 6 * 5, height1);
+		g.drawString(player.rankToString(player.getRank()),Scaler.width / 6 * 5, height3 );
 		g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, height2);
 		
 	}
@@ -226,25 +235,24 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				gameOver = false;
 				gameOverDialog.setRestart(false);
 				setVisible(false);
-				mainPanel.newGame();
+				mainPanel.newGame(num);
 			}
 			if (gameOverDialog.getBackToMain()) {
 				gameOverDialog.setBackToMain(false);
 				goToMain();
 			}
 		}
-
 		fireRate = player.getFireRate();
 		// loop a sample game
 		// testRun();
 		runGame(level);
 
 		/* start counting for 1 second when true */
-		if (startCount) {
-			startTime++;
-		} else if (!startCount) {
-			startTime = 0;
-		}
+//		if (startCount) {
+//			startTime++;
+//		} else if (!startCount) {
+//			startTime = 0;
+//		}
 
 		/*
 		 * checking which keys are still pressed and calling corresponding
