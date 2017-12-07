@@ -92,13 +92,13 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Color for the statistic Panel */
 	private Color statColor;
 
-	private KeyListener key;
+	//private KeyListener key;
 
 	private int levelRank;
 
-	private int actualHeight;
+	//private int actualHeight;
 
-	private int actualWidth;
+	//private int actualWidth;
 
 	private NachoFrame mainPanel;
 
@@ -107,7 +107,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 ******************************************************************/
 	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel) {
 		/* instantiating all key driven booleans as false */
-		level = new Level(LevelNum.LEVEL8);
+		level = new Level(LevelNum.LEVEL1);
 		this.player = player;
 		driveRight = false;
 		driveLeft = false;
@@ -156,8 +156,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		g.setFont(Scaler.font);
-		actualHeight = getHeight();
-		actualWidth = getWidth();
+		//actualHeight = getHeight();
+		//actualWidth = getWidth();
 
 		/* draw the background image */
 		g.drawImage(game.getBackGround().getBack(), 0, 0, this);
@@ -262,6 +262,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 */
 		game.checkShipPosition();
 		game.checkProjectileStatus();
+		blinkEffect();
 
 		/* clearing enemies and projectiles that collided */
 		clearSpentProjectiles();
@@ -392,7 +393,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		for (Enemy c : game.getDeadEnemies()) {
 			game.getEnemies().remove(c);
 			c.incrementCount();
-			if (c.getCounting() % 40 == 0) {
+			//if (c.getCounting() % 40 == 0) {
+			if (c.getCounting() >= 40) {
 				e.add(c);
 				startCount = false;
 				c.resetCount();
@@ -415,13 +417,22 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	 * @param c
 	 *            - The enemy that is exploding.
 	 *****************************************************************/
-	// private void blinkEffect(final Enemy c) {
+	//private void blinkEffect(final Enemy c) {
+	private void blinkEffect() {
+		for (Enemy e : game.getDeadEnemies()) {
+			if ((e.getCounting() >= 0) && (e.getCounting() < 10)) {
+				e.setImage("Art/explode.png");
+			} else if ((e.getCounting() >= 10) && (e.getCounting() < 20)) {
+				e.setImage("Art/Nasty_Nacho_Artwork.png");
+			}
+		}
+		
 	// if (c.getCounting() > 30 && c.getCounting() < 60) {
 	// c.setImage(null);
 	// } else if (c.getCounting() < 100) {
 	// c.doLogic();
 	// }
-	// }
+	 }
 	// FIXME: Not working right now!
 	/******************************************************************
 	 * This method checks to see which keys are still pressed. If the keys are

@@ -78,4 +78,7 @@ public class Player {
 	public void decrementXP() {
 		xp -= 5;
 	}
+	
+	
+	
 }
