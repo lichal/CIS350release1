@@ -141,7 +141,7 @@ public class MyDialog extends JDialog implements ActionListener {
 	}
 
 	/*******************************************************************
-	 * This is a getter that determines if resume is pressed
+	 * This is a getter that determines if resume is pressed.
 	 ******************************************************************/
 	public boolean getResumed() {
 		return resumed;
@@ -168,7 +168,7 @@ public class MyDialog extends JDialog implements ActionListener {
 	}
 
 	/*******************************************************************
-	 * The action performed class, checks for the button pressed
+	 * The action performed class, checks for the button pressed.
 	 * @param e - action event of player
 	 ******************************************************************/
 	@Override

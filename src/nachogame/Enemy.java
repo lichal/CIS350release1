@@ -44,7 +44,12 @@ public class Enemy extends SpaceObject {
 		Random r = new Random();
 		setX(r.nextInt(Scaler.width - getWidth()));
 		setY(-getHeight());
+
 		velY = (int) Math.ceil(Scaler.height/ 800);
+
+		double tempY = (Math.ceil(Scaler.height / 400.0));
+		velY = (int) tempY;
+
 		shot = false;
 		counting = 0;
 	}
