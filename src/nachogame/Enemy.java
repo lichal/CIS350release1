@@ -28,7 +28,11 @@ public class Enemy extends SpaceObject {
 	/** The rectangle for shoot determine a collision. */
 	private Rectangle shoot = new Rectangle();
 	
+<<<<<<< HEAD
 	
+=======
+	/** A boolean that indicates whether the enemy has been shot. */
+>>>>>>> 562f772472301ed9bef61ff706bb938ac9ee570a
 	private boolean shot;
 
 	/*****************************************************************

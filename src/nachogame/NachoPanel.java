@@ -51,11 +51,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** This checks the game time elapsed in 0.01 seconds. */
 	private int timeElapsed;
 
-//	/** A start time for counting one second. */
-//	private int startTime;
-//
-//	/** A boolean determine if one second counting should start. */
-//	private boolean startCount;
 
 	/** An int used to control the fire rate of the ship. */
 	private int fireRate;
