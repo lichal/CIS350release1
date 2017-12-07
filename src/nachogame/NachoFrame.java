@@ -2,6 +2,7 @@ package nachogame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,91 +10,131 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.border.LineBorder;
+/**********************************************************************
+ * The main nacho frame, has the main menu, access to each levels.
+ * 
+ * @author Cheng Li
+ *
+ *********************************************************************/
 public class NachoFrame extends JPanel implements ActionListener {
+	
+	/** Player of the current game. */
 	private Player player;
 	
+	/** The main nacho JFrame. */
 	private JFrame mainFrame;
 	
+	/** The nachoGame panel which has a game of nacho game. */
 	private NachoPanel nachoGame;
 	
+	/** JPanel holds the buttons. */
 	private JPanel buttonPanel;
-	
-	private JButton startButton;
-	
-	private JButton level1;
-	
-	private JButton level2;
-	
-	private JButton level3;
-	
-	private JButton level4;
-	
-	private JButton level5;
-	
-	private JButton level6;
-	
-	private JButton level7;
-	
-	private JButton level8;
-	
-	public NachoFrame() {
-		
-		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BorderLayout());
-		//buttonPanel.setLayout(new GridLayout(9, 7));
-		
-		startButton = new JButton("Start Game");
-		startButton.setFont(Scaler.font);
-		startButton.addActionListener(this);
-		
-		level1 = new JButton("LEVEL 1");
-		level1.setFont(Scaler.font);
-		level1.addActionListener(this);
-		
-		level2 = new JButton("LEVEL 2");
-		level2.setFont(Scaler.font);
-		level2.addActionListener(this);
 
-		level3 = new JButton("LEVEL 3");
-		level3.setFont(Scaler.font);
+	/** Level buttons 1 to 4 using MyMenuButton. */
+	private MyMenuButton level1, level2, level3, level4;
+	
+	/** Level buttons 5 to 8 using MyMenuButton. */
+	private MyMenuButton level5, level6, level7, level8;
+	
+	/** The JLabel contains Game Title. */
+	private JLabel title;
+	
+	/** JPanel use to store title. */
+	private JPanel titlePanel;
+	
+	/** This panel will combine both button and title panel */
+	private JPanel combinePanel;
+	
+	/** These two panel is created as a place holder. */
+	private JPanel holderPanel1;
+	private JPanel holderPanel2;
+	
+	/******************************************************************
+	 * Main constructor of Nacho frame
+	 *****************************************************************/
+	public NachoFrame() {
+		// Declare an empty color has an alpha of 0.
+		Color emptyColor = new Color(0, 0, 0, 0f);
+		// This color is for button panel.
+		Color normalColor = new Color(1, 0, 0, 0.3f);
+		// Instantiate the title label and format it.
+		title = new JLabel("SPACE ROCK NACHO");
+		title.setFont(new Font("Serif", Font.PLAIN, 50));
+		title.setForeground(Color.WHITE);
+		
+		// Instantiate all JPanels.
+		buttonPanel = new JPanel();
+		titlePanel = new JPanel();
+		combinePanel = new JPanel();
+		holderPanel1 = new JPanel();
+		holderPanel2 = new JPanel();
+		
+		// Set the Gridlayout of all panels.
+		buttonPanel.setLayout(new GridLayout(8, 1));
+		titlePanel.setLayout(new GridLayout(1, 1));
+		combinePanel.setLayout(new GridLayout(2, 1));
+		holderPanel1.setLayout(new GridLayout(1, 1));
+		holderPanel2.setLayout(new GridLayout(1, 1));
+		
+		// Set background of each panel.
+		titlePanel.setBackground(emptyColor);
+		holderPanel1.setBackground(emptyColor);
+		combinePanel.setBackground(emptyColor);
+		holderPanel2.setBackground(emptyColor);
+		buttonPanel.setBackground(normalColor);
+		
+		// 
+		titlePanel.add(title);
+		title.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+		
+		// Instantiate level buttons.
+		level1 = new MyMenuButton("LEVEL 1");
+		level2 = new MyMenuButton("LEVEL 2");
+		level3 = new MyMenuButton("LEVEL 3");
+		level4 = new MyMenuButton("LEVEL 4");
+		level5 = new MyMenuButton("LEVEL 5");
+		level6 = new MyMenuButton("LEVEL 6");
+		level7 = new MyMenuButton("LEVEL 7");
+		level8 = new MyMenuButton("LEVEL 8");
+		
+		// Add listener to each button.
+		level1.addActionListener(this);
+		level2.addActionListener(this);
 		level3.addActionListener(this);
-		
-		level4 = new JButton("LEVEL 4");
-		level4.setFont(Scaler.font);
 		level4.addActionListener(this);
-		
-		level5 = new JButton("LEVEL 5");
-		level5.setFont(Scaler.font);
 		level5.addActionListener(this);
-		
-		level6 = new JButton("LEVEL 6");
-		level6.setFont(Scaler.font);
 		level6.addActionListener(this);
-		
-		level7 = new JButton("LEVEL 7");
-		level7.setFont(Scaler.font);
 		level7.addActionListener(this);
-		
-		level8 = new JButton("LEVEL 8");
-		level8.setFont(Scaler.font);
 		level8.addActionListener(this);
 		
+		// Instantiate player.
 		player = new Player();
 		
+		// Set panel layout.
+		setLayout(new GridLayout(1, 3));
 		
-		//setLayout(new GridLayout(9, 1));
-//		add(startButton);
-		add(level1);
-		add(level2);
-		add(level3);
-		add(level4);
-		add(level5);
-		add(level6);
-		add(level7);
-		add(level8);
+		// Add level buttons to button panel
+		buttonPanel.add(level1);
+		buttonPanel.add(level2);
+		buttonPanel.add(level3);
+		buttonPanel.add(level4);
+		buttonPanel.add(level5);
+		buttonPanel.add(level6);
+		buttonPanel.add(level7);
+		buttonPanel.add(level8);
 		
+		// add title and button panels together
+		combinePanel.add(titlePanel);
+		combinePanel.add(buttonPanel);
+		// add all panels to the main JPanel
+		add(holderPanel1);
+		add(combinePanel);
+		add(holderPanel2);
+		
+		// Start a new JFrame
 		mainFrame = new JFrame("SPACE ROCK NACHOS");
 		mainFrame.setSize(Scaler.width, Scaler.height);
 		mainFrame.add(this);
@@ -121,14 +162,14 @@ public class NachoFrame extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == startButton) {
-			
-			// make a new nacho game
-			newGame(LevelNum.LEVEL1);
-			
-			// set main panel visible to false when the game start
-			setVisible(false);
-		}
+//		if (e.getSource() == startButton) {
+//			
+//			// make a new nacho game
+//			newGame(LevelNum.LEVEL1);
+//			
+//			// set main panel visible to false when the game start
+//			setVisible(false);
+//		}
 		
 		if (e.getSource() == level1) {
 			
