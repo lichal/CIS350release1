@@ -184,9 +184,7 @@ public class Logic extends JPanel {
 	 * 
 	 * @return boss - the boss in the game.
 	 *****************************************************************/
-	public TacoBoss getBoss() {
-		return boss;
-	}
+	
 
 	/*****************************************************************
 	 * This method returns the arraylist of enemies in the game.
@@ -225,15 +223,6 @@ public class Logic extends JPanel {
 		tables.add(new Table("Art/table.png", 650, 1));
 	}
 
-	/*****************************************************************
-	 * This method returns the arraylist of pissedOffTables in the game.
-	 * 
-	 * @return pissedOffTables - the tables that get hit by chips.
-	 *****************************************************************/
-	public ArrayList<Table> getPissedOffTables() {
-		return pissedOffTables;
-	}
-	
 	
 	/*****************************************************************
 	 * This method returns the arraylist of space objects in the game.

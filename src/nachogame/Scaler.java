@@ -16,18 +16,16 @@ import java.awt.Toolkit;
 public class Scaler {
 
 	/** The width of object. */
-	public static int width;
+	public static final int width = (int) (Toolkit.getDefaultToolkit().
+			getScreenSize().getWidth());
 	/** The height of the object. */
-	public static int height;
+	public static final int height = (int) (0.9 * Toolkit.getDefaultToolkit().
+			getScreenSize().getHeight());
 	/** Keep font big enough to read on screen. */
 	public static Font font;
 
 	static {
 		try {
-			width = (int) (Toolkit.getDefaultToolkit().
-					getScreenSize().getWidth());
-			height = (int) (0.9 * Toolkit.getDefaultToolkit().
-					getScreenSize().getHeight());
 			int fontSize = (int) (0.012 * Scaler.width);
 		font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
 		} catch (AWTError a) {
