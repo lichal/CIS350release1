@@ -13,11 +13,11 @@ package nachogame;
 public class Ship extends SpaceObject {
 
 	/** The velocity when ship is stopped. */
-	private static int v0; 
+	private static final int  v0 = 0; 
 	/** The velocity when the ship is driving left. */
-	private static int vL; 
+	private static final int vL = -Scaler.width / 200; 
 	/** The velocity when the ship is driving right. */
-	private static int vR;
+	private static final int vR = Scaler.width / 200;
 
 	/*****************************************************************
 	 * The constructor for ship.
@@ -26,9 +26,9 @@ public class Ship extends SpaceObject {
 		super(1.0, 0.085, "Art/Disgusting_Mustard_Yellow.png");
 		setX(Scaler.width / 2);
 		setY(Scaler.height - getHeight());
-		v0 = 0;
-		vL = -Scaler.width / 200;
-		vR = Scaler.width / 200;
+//		v0 = 0;
+//		vL = -Scaler.width / 200;
+//		vR = Scaler.width / 200;
 	}
 
 	@Override
@@ -41,9 +41,6 @@ public class Ship extends SpaceObject {
 		return v0;
 	}
 
-	public static void setV0(int v0) {
-		Ship.v0 = v0;
-	}
 
 	public static int getvL() {
 		return vL;

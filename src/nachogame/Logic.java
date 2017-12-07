@@ -23,9 +23,6 @@ public class Logic extends JPanel {
 	/** The arrayList of dead enemies in the game. */
 	private ArrayList<Enemy> deadEnemies;
 	/** The arrayList of tables in the game. */
-	private ArrayList<Table> tables;
-	/** The ArrayList of pissed off tables in the game. */
-	private ArrayList<Table> pissedOffTables;
 	/** The background for the game. */
 	private BackGround background;
 	/** The boss in the game. */
@@ -48,9 +45,6 @@ public class Logic extends JPanel {
 		numEnemyDestroyed = 0;
 		enemyMissed = 0;
 
-		tables = new ArrayList<Table>();
-
-		setInitialTables();
 		health = 5;
 
 		background = new BackGround(1);
@@ -204,24 +198,6 @@ public class Logic extends JPanel {
 		return projectiles;
 	}
 
-	/*****************************************************************
-	 * This method returns the arraylist of tables in the game.
-	 * 
-	 * @return tables - the tables in the game.
-	 *****************************************************************/
-	public ArrayList<Table> getTables() {
-		return tables;
-	}
-
-	/*****************************************************************
-	 * This method returns the arraylist of tables in the game.
-	 *****************************************************************/
-	public void setInitialTables() {
-		tables.add(new Table("Art/table.png", 50, 1));
-		tables.add(new Table("Art/table.png", 250, 1));
-		tables.add(new Table("Art/table.png", 450, 1));
-		tables.add(new Table("Art/table.png", 650, 1));
-	}
 
 	
 	/*****************************************************************
