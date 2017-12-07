@@ -119,7 +119,7 @@ public class Logic extends JPanel {
 	}
 	
 	/*****************************************************************
-	 * This method returns the number of enemy player missed
+	 * This method returns the number of enemy player missed.
 	 * 
 	 * @return numEnemyDestroyed - the number of enemy missed
 	 *****************************************************************/
@@ -143,21 +143,21 @@ public class Logic extends JPanel {
 	 * This method sets ships x velocity to 0.
 	 *****************************************************************/
 	public void stopShip() {
-		ship.setVelX(Ship.V0);
+		ship.setVelX(Ship.getV0());
 	}
 
 	/*****************************************************************
 	 * This method increments x velocity to drive right.
 	 *****************************************************************/
 	public void driveRight() {
-		ship.setVelX(Ship.VR);
+		ship.setVelX(Ship.getvR());
 	}
 
 	/*****************************************************************
 	 * This method decrements x velocity to drive left.
 	 *****************************************************************/
 	public void driveLeft() {
-		ship.setVelX(Ship.VL);
+		ship.setVelX(Ship.getvL());
 	}
 
 	/*****************************************************************
