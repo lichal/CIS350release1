@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,8 +29,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Declaring game Logic. */
 	private Logic game;
 
-	/** A counter used to control auto enemy spawn rate. */
-	private int count;
 
 	/** Used as a counter to delay shooting the cheese. */
 	private int fire;
@@ -45,9 +42,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** A boolean that is determined by space bar presses. */
 	private boolean shoot;
 
-	/** This checks the game time elapsed in 0.01 seconds. */
-	private int timeElapsed;
-
 
 	/** An int used to control the fire rate of the ship. */
 	private int fireRate;
@@ -55,17 +49,12 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** a 60 second wave before the taco salad boss. */
 	static final int NACHOENEMY = 6000;
 
-	/** A random to randomize how enemies are appear. */
-	private Random rand;
 
 	/** Determine if the player is playing the game. */
 	private boolean gameOver;
 
 	/** The level the player is on. */
 	private Level level;
-
-	/** Fast shooting effect on. */
-	private boolean fastShooting;
 
 	/** Game Score. */
 	private int score;
@@ -107,7 +96,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		shoot = false;
 		gameOver = false;
 		
-		fastShooting = false;
 
 		this.mainPanel = mainPanel;
 		gamePausedDialog = new MyDialog(parent, "Game Paused", 
@@ -115,8 +103,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		gameOverDialog = new MyDialog(parent, "Game Over", 
 			"Main Menu", "Restart");
 
-		/* instantiating a new random */
-		rand = new Random();
 
 		/* instantiating a new game logic */
 		game = new Logic();
@@ -127,8 +113,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		/* instantiating fire, count, timeElapsed, and startTime at 0 */
 		fire = 0;
-		count = 0;
-		timeElapsed = 0;
+
 //		startTime = 0;
 		score = 0;
 
@@ -271,9 +256,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		}
 		/* incrementing fire and count to control fire rate
 		 *  and enemy spawning. */
-		count++;
 		fire++;
-		timeElapsed++;
+
 		
 		/* Checks if special effect is on*/
 		/* repainting graphics */
