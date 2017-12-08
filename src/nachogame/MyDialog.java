@@ -217,7 +217,8 @@ public class MyDialog extends JDialog implements ActionListener {
 			}
 		}
 		
-		if (dialogStat == "Game Over") {
+		if (dialogStat == "Game Over" || dialogStat 
+				== "You beat this level!") {
 			if (e.getSource() == rightButton) {
 				restart = true;
 				dispose();

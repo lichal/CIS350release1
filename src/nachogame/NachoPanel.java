@@ -52,6 +52,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** Determine if the player is playing the game. */
 	private boolean gameOver;
+	
+	/** Determines if level complete */
+	private boolean lComplete;
 
 	/** The level the player is on. */
 	private Level level;
@@ -67,6 +70,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 	/** The game over dialog panel. */
 	private MyDialog gameOverDialog;
+	
+	/** The level complete dialog. */
+	private MyDialog levelCompleteDialog;
 
 	/** Color for the statistic Panel. */
 	private Color statColor;
@@ -104,9 +110,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		this.mainPanel = mainPanel;
 		gamePausedDialog = new MyDialog(parent, "Game Paused", 
-			"Quit", "Resume");
+			"Main Menu", "Resume");
 		gameOverDialog = new MyDialog(parent, "Game Over", 
 			"Main Menu", "Restart");
+		levelCompleteDialog = new MyDialog(parent, 
+				"You beat this level!", "Main Menu", "Continue");
 
 
 		/* instantiating a new game logic */
@@ -233,6 +241,22 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				goToMain();
 			}
 		}
+		
+		if (lComplete) {
+			tmr.stop();
+			levelCompleteDialog.setVisible(true);
+			if (levelCompleteDialog.getRestart()) {
+				lComplete = false;
+				levelCompleteDialog.setRestart(false);
+				setVisible(false);
+				mainPanel.newGame(num);
+			}
+			if (levelCompleteDialog.getBackToMain()) {
+				levelCompleteDialog.setBackToMain(false);
+				goToMain();
+			}
+		}
+			
 		fireRate = player.getFireRate();
 		// loop a sample game
 		// testRun();
@@ -453,7 +477,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 		level.manageSpawn();
 		if (level.getTime() >= level.getLevelTime()) {
-			gameOver = true;
+			lComplete = true;
 		}
 	}
 
