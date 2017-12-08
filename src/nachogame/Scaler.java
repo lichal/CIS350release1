@@ -15,7 +15,7 @@ import java.awt.Toolkit;
 
 public class Scaler {
 
-	/** The width of object. */
+	/** The width of object in the game. */
 	public static final int WIDTH = (int) (Toolkit.getDefaultToolkit().
 			getScreenSize().getWidth());
 	/** The height of the object. */
