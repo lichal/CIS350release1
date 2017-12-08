@@ -53,7 +53,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Determine if the player is playing the game. */
 	private boolean gameOver;
 	
-	/** Determines if level complete */
+	/** Determines if level complete. */
 	private boolean lComplete;
 
 	/** The level the player is on. */
