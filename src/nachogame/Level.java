@@ -31,7 +31,8 @@ public class Level {
 	time is up. */
 	private static int paddingTime = 500;
 	
-	LevelNum level;
+	/** The levelNum for the corresponding level the panel is displaying. */
+	private LevelNum level;
 	
 	/******************************************************************
 	 * This is the constructor for Level. The Level is created with 
@@ -41,7 +42,10 @@ public class Level {
 	public Level(final LevelNum level) {
 		this.level = level;
 	}
-//		if (level == LevelNum.LEVEL1)
+
+	/******************************************************************
+	 * This method runs the level the game is on.
+	 ******************************************************************/
 	public void run() {
 		switch (level) {
 		case LEVEL1 :

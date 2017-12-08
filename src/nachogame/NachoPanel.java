@@ -1,8 +1,6 @@
 package nachogame;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -64,42 +61,43 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Determine if the player is playing the game. */
 	private boolean gameOver;
 
-	/** The level the player is on */
+	/** The level the player is on. */
 	private Level level;
 
-	/** Fast shooting effect on */
+	/** Fast shooting effect on. */
 	private boolean fastShooting;
 
-	/** Game Score */
+	/** Game Score. */
 	private int score;
 
-	// private JFrame j;
-
+	/** The player object for the game session. */
 	private Player player;
 
+	/** The pause dialog panel. */
 	private MyDialog gamePausedDialog;
 
+	/** The game over dialog panel. */
 	private MyDialog gameOverDialog;
 
-	/** Color for the statistic Panel */
+	/** Color for the statistic Panel. */
 	private Color statColor;
 
-//	private KeyListener key;
-//
-//	private int levelRank;
-//
-//	private int actualHeight;
-//
-//	private int actualWidth;
-
+	/** The NachoFrame "this" belongs to. */
 	private NachoFrame mainPanel;
 	
+	/** The LevelNum of the current level being displayed. */
 	private LevelNum num;
 
 	/*******************************************************************
 	 * The game panel for our nacho game.
+	 * @param parent - the JFrame the nacho panel is displayed in.
+	 * @param player - the player for the nacho panel and nacho game.
+	 * @param mainPanel - the NachoFrame the nacho panel belongs to.
+	 * @param num - the levelNum that corresponds to the level
+	 *  being displayed.
 	 ******************************************************************/
-	public NachoPanel(JFrame parent, Player player, NachoFrame mainPanel, LevelNum num) {
+	public NachoPanel(final JFrame parent, final Player player, 
+			final NachoFrame mainPanel, final LevelNum num) {
 		/* instantiating all key driven booleans as false */
 		this.num = num;
 		level = new Level(this.num);
@@ -112,8 +110,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		fastShooting = false;
 
 		this.mainPanel = mainPanel;
-		gamePausedDialog = new MyDialog(parent, "Game Paused", "Quit", "Resume");
-		gameOverDialog = new MyDialog(parent, "Game Over", "Main Menu", "Restart");
+		gamePausedDialog = new MyDialog(parent, "Game Paused", 
+			"Quit", "Resume");
+		gameOverDialog = new MyDialog(parent, "Game Over", 
+			"Main Menu", "Restart");
 
 		/* instantiating a new random */
 		rand = new Random();
@@ -132,7 +132,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 //		startTime = 0;
 		score = 0;
 
-		/* instantiate the statistic panel with color reddish and alpha 0.5 */
+		/* instantiate the statistic panel with color reddish 
+		 * and alpha 0.5 */
 		statColor = new Color(1, 0, 0, 0.5f);
 
 		/* adding keyListener and requesting focus */
@@ -159,9 +160,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.yellow);
 		for (SpaceObject sp : game.getSpaceObjects()) {
 			if (sp instanceof Projectile) {
-				g.fillOval(sp.getX(), sp.getY(), sp.getWidth(), sp.getHeight());
+				g.fillOval(sp.getX(), sp.getY(), sp.getWidth(),
+					sp.getHeight());
 			} else {
-				g.drawImage(sp.getImage(), sp.getX(), sp.getY(), this);
+				g.drawImage(sp.getImage(), sp.getX(), 
+					sp.getY(), this);
 				if (sp instanceof Ship) {
 					sp.setY(getHeight() - sp.getHeight());
 				}
@@ -171,42 +174,49 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		/* displaying when ship is ready to fire again */
 		if (fire >= fireRate) {
 			g.setColor(Color.GREEN);
-			g.fillRect(10, Scaler.height - 10 - fireRate * 4, 10, fireRate * 4);
+			g.fillRect(10, Scaler.HEIGHT - 10 - fireRate 
+				* 4, 10, fireRate * 4);
 
 			/* displays when ship is not ready to fire */
 		} else {
 			if (fire <= fireRate / 2) {
 				g.setColor(Color.RED);
 			}
-			g.fillRect(10, Scaler.height - 10 - fire * 4, 10, fire * 4);
+			g.fillRect(10, Scaler.HEIGHT - 10 - fire
+				* 4, 10, fire * 4);
 		}
-		g.drawRect(10, Scaler.height - 10 - fireRate * 4, 10, fireRate * 4);
+		g.drawRect(10, Scaler.HEIGHT - 10 - fireRate * 4,
+			10, fireRate * 4);
 
 		/*  */
 		g.setColor(statColor);
-		g.fillRect(Scaler.width / 6 * 5, 0, Scaler.width / 6, Scaler.height / 6);
+		g.fillRect(Scaler.WIDTH / 6 * 5, 0, Scaler.WIDTH 
+			/ 6, Scaler.HEIGHT / 6);
 
 		/*  */
 		g.setColor(Color.GRAY);
-		//g.drawString("Level Ranking: " + levelRank, Scaler.width / 6 * 5, 10);
-		//g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, 50);
-		int height1 = (int)(Scaler.height * 2 / 100);
-		int height3 = (int)(Scaler.height * 6 / 100);
-		int height2 = (int)(Scaler.height * 10 / 100);
-		g.drawString("Level Ranking:", Scaler.width / 6 * 5, height1);
-		g.drawString(player.rankToString(player.getRank()),Scaler.width / 6 * 5, height3 );
-		g.drawString("XP " + player.getXP(), Scaler.width / 6 * 5, height2);
+		int height1 = (int) (Scaler.HEIGHT * 2 / 100);
+		int height3 = (int) (Scaler.HEIGHT * 6 / 100);
+		int height2 = (int) (Scaler.HEIGHT * 10 / 100);
+		g.drawString("Level Ranking:", Scaler.WIDTH / 6 * 5, height1);
+		g.drawString(player.rankToString(player.getRank()),
+			Scaler.WIDTH / 6 * 5, height3);
+		g.drawString("XP " + player.getXP(), Scaler.WIDTH 
+			/ 6 * 5, height2);
 		
 	}
 
+	/******************************************************************
+	 * This method returns user to the main menu.
+	 *****************************************************************/
 	private void goToMain() {
 		setVisible(false);
 		mainPanel.setVisible(true);
 	}
 
 	/******************************************************************
-	 * This is the actionPerformed method that fires every time the Timer tmr
-	 * fires(every 10 milliseconds).
+	 * This is the actionPerformed method that fires every time the Timer 
+	 * tmr fires(every 10 milliseconds).
 	 * 
 	 * @param e
 	 *            - Every 10 milliseconds
@@ -232,18 +242,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		// loop a sample game
 		// testRun();
 		runGame(level);
-
-		/* start counting for 1 second when true */
-//		if (startCount) {
-//			startTime++;
-//		} else if (!startCount) {
-//			startTime = 0;
-//		}
-
-		/*
-		 * checking which keys are still pressed and calling corresponding
-		 * action
-		 */
+		
+		/* checking which keys are still pressed and calling 
+		 * corresponding action */
 		checkKeys();
 
 		/* Moving EVERYTHING AT ONCE */
@@ -261,18 +262,15 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		clearSpentProjectiles();
 		clearDeadEnemies();
 
-		/*
-		 * detecting collisions to be removed next time actionPerformed is
-		 * called.
-		 */
+		/* detecting collisions to be removed next time 
+		 * actionPerformed is called. */
 		game.detectCollisions();
 		//
-		if (player.getXP() <= 0)
+		if (player.getXP() <= 0) {
 			gameOver = true;
-
-		/*
-		 * incrementing fire and count to control fire rate and enemy spawning.
-		 */
+		}
+		/* incrementing fire and count to control fire rate
+		 *  and enemy spawning. */
 		count++;
 		fire++;
 		timeElapsed++;
@@ -294,9 +292,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	/*****************************************************************
-	 * Setting key Events for the GUI If the player presses the left arrow the
-	 * ship will drive left If the player pushes the right arrow the ship will
-	 * drive right If the player pushes the spacebar the ship will shoot cheese.
+	 * Setting key Events for the GUI If the player presses the left 
+	 * arrow the ship will drive left If the player pushes the right 
+	 * arrow the ship will drive right If the player pushes the spacebar
+	 * the ship will shoot cheese.
 	 * 
 	 * @param e
 	 *            The key currently being pressed
@@ -336,8 +335,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	/*******************************************************************
-	 * Stops ship from traveling when the arrow keys are released and stops the
-	 * ship from shooting if the spacebar is released.
+	 * Stops ship from traveling when the arrow keys are released 
+	 * and stops the ship from shooting if the spacebar is released.
 	 * 
 	 * @param e
 	 *            - the key that is released
@@ -362,8 +361,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	/******************************************************************
-	 * This method clears expired projectiles that have either hit an enemy or
-	 * left the screen from the game.
+	 * This method clears expired projectiles that have either hit an
+	 * enemy or left the screen from the game.
 	 *****************************************************************/
 	private void clearSpentProjectiles() {
 		for (Projectile p : game.getSpentProjectiles()) {
@@ -385,10 +384,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 				e.add(c);
 //				startCount = false;
 				c.resetCount();
-				if (c.getShot())
+				if (c.getShot()) {
 					player.incrementXP();
-				else
+				} else {
 					player.decrementXP();
+				}
 				game.getEnemies().remove(c);
 			}
 		}
@@ -400,9 +400,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 
 	/******************************************************************
-	 * This method checks to see which keys are still pressed. If the keys are
-	 * still pressed they continue their action, regardless of what other keys
-	 * are pressed or released.
+	 * This method checks to see which keys are still pressed. If 
+	 * the keys are still pressed they continue their action, 
+	 * regardless of what other keys are pressed or released.
 	 *****************************************************************/
 	private void checkKeys() {
 
@@ -428,49 +428,6 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 
-
-	/*******************************************************************
-	 * This method generate a wave of enemy on the screen, enemy will appear on
-	 * the middle three tracks.
-	 ******************************************************************/
-
-	/*******************************************************************
-	 * This method runs a basic game of the space rock nacho.
-	 * 
-	 ******************************************************************/
-	private void testRun() {
-		/* Auto spawning enemies for testing */
-		/* First 30 seconds */
-
-		if (timeElapsed < NACHOENEMY / 2) {
-			if (count % 100 == 0) {
-				game.spawnEnemy();
-			}
-
-			/* 30 second to 48 second, wave 1 */
-		} else if (timeElapsed >= NACHOENEMY / 2 && timeElapsed <= NACHOENEMY * 0.8) {
-			if (count % 150 == 0) {
-				game.spawnEnemy();
-			}
-		} else if (timeElapsed > NACHOENEMY * 0.8 && timeElapsed < NACHOENEMY) {
-			if (count % 300 == 0) {
-				game.spawnEnemy();
-			}
-		} else if (timeElapsed >= NACHOENEMY && timeElapsed <= NACHOENEMY * 1.5) {
-			generateBoss();
-		} else if (timeElapsed >= NACHOENEMY * 1.5) {
-			gameOver = true;
-		}
-	}
-
-	/*******************************************************************
-	 * Generate a boss into the game.
-	 ******************************************************************/
-	private void generateBoss() {
-		game.spawnBoss();
-	}
-
-
 	/*******************************************************************
 	 * This method calculates the game score and returns it.
 	 * 
@@ -486,10 +443,9 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 
 	/******************************************************************
 	 * Test Method for level system.
-	 * 
-	 * @param level
+	 * @param level - The level being played in this NachoPanel.
 	 *****************************************************************/
-	private void runGame(Level level) {
+	private void runGame(final Level level) {
 		level.run();
 		level.incrementTime();
 		if (level.getSpawnEnemy()) {

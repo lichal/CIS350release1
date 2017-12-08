@@ -1,7 +1,6 @@
 package nachogame;
 
 import java.awt.Color;
-import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -14,22 +13,22 @@ import javax.swing.event.ChangeListener;
  * @author Cheng Li
  * @version Nov 30, 2017
  *********************************************************************/
-public class MyButton extends JButton{
+public class MyButton extends JButton {
 	
-	/** Background color use for the Buttons */
+	/** Background color use for the Buttons. */
 	private Color normalColor;
 	
-	/** This is the color of the text when button is pressed */
+	/** This is the color of the text when button is pressed. */
 	private Color pressdColor;
 	
-	/** This is the color of the text when button is not pressed */
+	/** This is the color of the text when button is not pressed. */
 	private Color unPressedColor;
 	
 	/*******************************************************************
-	 * My button which modify and my JButton more fancy
+	 * My button which modify and my JButton more fancy.
 	 * @param text - the text appear on the button
 	 ******************************************************************/
-	public MyButton(String text){
+	public MyButton(final String text) {
 		super(text);
 		
 		// define a color for the button background color

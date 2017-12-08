@@ -42,9 +42,9 @@ public class Enemy extends SpaceObject {
 		destroyed = false;
 
 		Random r = new Random();
-		setX(r.nextInt(Scaler.width - getWidth()));
+		setX(r.nextInt(Scaler.WIDTH - getWidth()));
 		setY(-getHeight());
-		double tempY = (Math.ceil(Scaler.height / 400.0));
+		double tempY = (Math.ceil(Scaler.HEIGHT / 400.0));
 		velY = (int) tempY;
 		shot = false;
 		counting = 0;
@@ -75,7 +75,7 @@ public class Enemy extends SpaceObject {
 		this.setImage(img);
 		destroyed = collide;
 		setImage(getImage().getScaledInstance(
-				getWidth(), (int)(getHeight()*0.7), Image.SCALE_DEFAULT));
+		getWidth(), (int) (getHeight() * 0.7), Image.SCALE_DEFAULT));
 		
 	}
 
@@ -133,18 +133,34 @@ public class Enemy extends SpaceObject {
 		this.destroyed = destroyed;
 	}
 	
+	/******************************************************************
+	 * This method increments counting which is used to display explosions
+	 * following the defeat of an enemy.
+	 *****************************************************************/
 	public void incrementCount() {
-		counting ++;
+		counting++;
 	}
 	
+	
+	/******************************************************************
+	 * This method sets counting back to 0.
+	 *****************************************************************/
 	public void resetCount() {
 		counting = 0;
 	}
 	
+	/******************************************************************
+	 * This method returns the whether the enemy has been shot.
+	 * @return shot - a boolean that depicts whether the enemy has 
+	 * been shot.
+	 *****************************************************************/
 	public boolean getShot() {
 		return shot;
 	}
 	
+	/******************************************************************
+	 * This method sets the boolean shot to true.
+	 *****************************************************************/
 	public void setShot() {
 		shot = true;
 	}

@@ -16,17 +16,18 @@ import java.awt.Toolkit;
 public class Scaler {
 
 	/** The width of object. */
-	public static final int width = (int) (Toolkit.getDefaultToolkit().
+	public static final int WIDTH = (int) (Toolkit.getDefaultToolkit().
 			getScreenSize().getWidth());
 	/** The height of the object. */
-	public static final int height = (int) (0.9 * Toolkit.getDefaultToolkit().
+	public static final int HEIGHT = (int) (0.9 
+		* Toolkit.getDefaultToolkit().
 			getScreenSize().getHeight());
 	/** Keep font big enough to read on screen. */
-	public static Font font;
+	protected static Font font;
 
 	static {
 		try {
-			int fontSize = (int) (0.012 * Scaler.width);
+			int fontSize = (int) (0.012 * Scaler.WIDTH);
 		font = new Font("Calibri", Font.TRUETYPE_FONT, fontSize);
 		} catch (AWTError a) {
 			System.out.println("AWTError");
@@ -55,7 +56,7 @@ public class Scaler {
 		int[] newDimens = new int[2];
 		if ((aspectRatioYOverX > 0.0) && (portion > 0.0)
 			&& (portion <= 1.0)) {
-			newDimens[0] = (int) (portion * Scaler.width);
+			newDimens[0] = (int) (portion * Scaler.WIDTH);
 			newDimens[1] = (int) (aspectRatioYOverX * newDimens[0]);
 			return newDimens;
 		} else {

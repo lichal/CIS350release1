@@ -1,10 +1,8 @@
 package nachogame;
 
 import java.awt.Color;
-import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -15,23 +13,23 @@ import javax.swing.event.ChangeListener;
  * @author Cheng Li
  * @version Nov 30, 2017
  *********************************************************************/
-public class MyMenuButton extends JButton{
+public class MyMenuButton extends JButton {
 
 	
-	/** Background color use for the Buttons */
+	/** Background color use for the Buttons. */
 	private Color normalColor;
 	
-	/** This is the color of the text when button is pressed */
+	/** This is the color of the text when button is pressed. */
 	private Color pressdColor;
 	
-	/** This is the color of the text when button is not pressed */
+	/** This is the color of the text when button is not pressed. */
 	private Color unPressedColor;
 	
 	/*******************************************************************
 	 * My menu button which modify and my JButton more fancy.
 	 * @param text - the text appear on the button.
 	 ******************************************************************/
-	public MyMenuButton(String text){
+	public MyMenuButton(final String text) {
 		super(text);
 		
 		// define a color for the button background color

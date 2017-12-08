@@ -14,27 +14,31 @@ import javax.swing.JPanel;
 public class Logic extends JPanel {
 	/** The ship in the game. */
 	private Ship ship;
+	
 	/** The ArrayList of enemies in the game. */
 	private ArrayList<Enemy> enemies;
+	
 	/** The ArrayList of Projectiles in the game. */
 	private ArrayList<Projectile> projectiles;
+	
 	/** The ArrayList of spent projectiles in the game. */
 	private ArrayList<Projectile> spentProjectiles;
+	
 	/** The arrayList of dead enemies in the game. */
 	private ArrayList<Enemy> deadEnemies;
-	/** The arrayList of tables in the game. */
+	
 	/** The background for the game. */
 	private BackGround background;
-	/** The boss in the game. */
-	private TacoBoss boss;
-	/** Number of enemy destroyed */
+	
+	/** Number of enemy destroyed. */
 	private int numEnemyDestroyed;
-	/** Number of enemy missed */
+	
+	/** Number of enemy missed. */
 	private int enemyMissed;
 	
+	/** An arraylist of the various entities in the game. */
 	private ArrayList<SpaceObject> spaceObjects;
 	
-	private int health;
 
 	/******************************************************************
 	 * The constructor for Logic.
@@ -44,8 +48,6 @@ public class Logic extends JPanel {
 		/** initialize the number of enemy destroy and miss */
 		numEnemyDestroyed = 0;
 		enemyMissed = 0;
-
-		health = 5;
 
 		background = new BackGround(1);
 
@@ -78,10 +80,9 @@ public class Logic extends JPanel {
 	 * This method puts all SpaceObjects in a list - this way,
 	 * every object that has to move on screen can just be called
 	 * from this list in a loop (after they are added to it).
-	 * 
-	 * @return s - The Space Object
+	 * @param s - the spaceObject to be added to the game.
 	 *****************************************************************/
-	public void addSpaceCadet(SpaceObject s) {
+	public void addSpaceCadet(final SpaceObject s) {
 		if (!spaceObjects.contains(s)) {
 			spaceObjects.add(s);
 		}
@@ -91,10 +92,9 @@ public class Logic extends JPanel {
 	/******************************************************************
 	 * This method removes a SpaceObject from the list. They have been
 	 * uninvited to the party.
-	 * 
-	 * @return s - The Space Object
+	 * @param s - the spaceObject to be removed.
 	 *****************************************************************/
-	public void removeSpaceCadet(SpaceObject s) {
+	public void removeSpaceCadet(final SpaceObject s) {
 		if (spaceObjects.contains(s)) {
 			spaceObjects.remove(s);
 		}
@@ -104,11 +104,11 @@ public class Logic extends JPanel {
 	
 	
 	/*****************************************************************
-	 * This method returns the number of enemy destroyed by player
+	 * This method returns the number of enemy destroyed by player.
 	 * 
 	 * @return numEnemyDestroyed - the number of enemy destroyed
 	 *****************************************************************/
-	public int getNumEnemyDestroyed(){
+	public int getNumEnemyDestroyed() {
 		return numEnemyDestroyed;
 	}
 	
@@ -117,7 +117,7 @@ public class Logic extends JPanel {
 	 * 
 	 * @return numEnemyDestroyed - the number of enemy missed
 	 *****************************************************************/
-	public int getEnemyMissed(){
+	public int getEnemyMissed() {
 		return enemyMissed;
 	}
 
@@ -210,8 +210,9 @@ public class Logic extends JPanel {
 	}
 
 	/******************************************************************
-	 * This method detects collisions between projectiles and Enemies and adds the
-	 * corresponding enemies to deadEnemies and the projectiles to spentProjectiles.
+	 * This method detects collisions between projectiles and Enemies 
+	 * and adds the corresponding enemies to deadEnemies and the 
+	 * projectiles to spentProjectiles.
 	 *****************************************************************/
 	public void detectCollisions() {
 		for (Enemy e : enemies) {
@@ -221,17 +222,12 @@ public class Logic extends JPanel {
 			//}
 
 			// determine if enemy collide with the ship
-			// these are going to disappear anyway - no need to check if health is zero or less
-			if (e.getY() >= Scaler.height) {
-				health--;
-				//e.setHealth(e.getHealth() - e.getHealth());
-				// add one for every enemy miss
-				//if(e.getHealth() == 0){
+			if (e.getY() >= Scaler.HEIGHT) {
 				enemyMissed++;
 				deadEnemies.add(e);
 				e.doLogic();
-				e.setHealth(e.getHealth()-1);
-				//}
+				e.setHealth(e.getHealth() - 1);
+				
 			}
 
 			for (Projectile p : projectiles) {
@@ -239,22 +235,16 @@ public class Logic extends JPanel {
 				// determine if the shot hits the enemy
 				if (e.collide(p)) {
 					e.setShot();
-					// enemy health minus projectile damage
-					// enemy health is going to subtract anyway - no need to check if not dead already
-					//if (e.getHealth() > 0) {
-						// add spent projectile to the array
-						spentProjectiles.add(p);
-						e.setHealth(e.getHealth() - p.getDMG());
-					//}
-
-					// check health, add dead enemy to the array
+					spentProjectiles.add(p);
+					e.setHealth(e.getHealth() - p.getDMG());
+				// check health, add dead enemy to the array
 					if (e.getHealth() <= 0) {
 						spentProjectiles.add(p);
-						// add one to every enemy destroy
+				// add one to every enemy destroy
 						numEnemyDestroyed++;
 						deadEnemies.add(e);
 						e.doLogic();
-						e.setHealth(e.getHealth()-1);
+						e.setHealth(e.getHealth() - 1);
 
 					}
 				}
@@ -264,9 +254,6 @@ public class Logic extends JPanel {
 
 	/******************************************************************
 	 * This method adds a new enemy to enemies ArrayList.
-	 * 
-	 * @param x
-	 *            - The x coordinate of the enemy.
 	 *****************************************************************/
 	public void spawnEnemy() {
 		Enemy e = new Enemy(1);
@@ -274,29 +261,6 @@ public class Logic extends JPanel {
 		addSpaceCadet(e);
 	}
 
-	/******************************************************************
-	 * This method adds a new TacoBoss to enemies ArrayList.
-	 *****************************************************************/
-	public void spawnBoss() {
-		enemies.add(new TacoBoss(10));
-	}
-
-//	/******************************************************************
-//	 * This method moves the Enemies on the screen and deletes enemies that have
-//	 * traveled out of bounds.
-//	 *****************************************************************/
-//	public void moveEnemies() {
-//		for (Enemy e : enemies) {
-//			if (e.getDestroyed()) {
-//				e.setY(e.getY());
-//				e.doLogic();
-//				deadEnemies.add(e);
-//			}
-//			if (e.getY() <= Scaler.height - ship.getHeight() - e.getHeight()) {
-//				e.setY(e.getY() + e.getVelY());
-//			}
-//		}
-//	}
 
 	/******************************************************************
 	 * This method retrieves the spentProjectiles ArrayList.
@@ -330,17 +294,6 @@ public class Logic extends JPanel {
 			ship.setX(ship.getMaxX());
 		}
 
-	}
-
-//	/******************************************************************
-//	 * This method moves the ship (sauce shooter).
-//	 *****************************************************************/
-//	public void moveShip() {
-//		getShip().setX(getShip().getX() + getShip().getVelx());
-//	}
-	
-	public int getHealth() {
-		return health;
 	}
 
 }

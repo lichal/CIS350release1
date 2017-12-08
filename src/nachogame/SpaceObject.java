@@ -107,10 +107,10 @@ public abstract class SpaceObject {
 	}
 
 	/*******************************************************************
-	 * Setter for space object image
+	 * Setter for space object image.
 	 * @param image - image of the object
 	 ******************************************************************/
-	public void setImage(Image image) {
+	public void setImage(final Image image) {
 		this.image = image;
 	}
 
@@ -189,14 +189,14 @@ public abstract class SpaceObject {
 	 * @return the farthest x pos it can be drawn at
 	 *****************************************************************/
 	public int getMaxX() {
-		return (Scaler.width - width);
+		return (Scaler.WIDTH - width);
 	}
 
 	/******************************************************************
 	 * @return the farthest y pos it can be drawn at
 	 *****************************************************************/
 	public int getMaxY() {
-		return (Scaler.height - height);
+		return (Scaler.HEIGHT - height);
 	}
 
 	/******************************************************************

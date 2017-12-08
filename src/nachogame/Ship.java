@@ -13,22 +13,19 @@ package nachogame;
 public class Ship extends SpaceObject {
 
 	/** The velocity when ship is stopped. */
-	private static final int  v0 = 0; 
+	private static final int  V0 = 0; 
 	/** The velocity when the ship is driving left. */
-	private static final int vL = -Scaler.width / 200; 
+	private static final int VL = -Scaler.WIDTH / 200; 
 	/** The velocity when the ship is driving right. */
-	private static final int vR = Scaler.width / 200;
+	private static final int VR = Scaler.WIDTH / 200;
 
 	/*****************************************************************
 	 * The constructor for ship.
 	 ****************************************************************/
 	public Ship() {
 		super(1.0, 0.085, "Art/Disgusting_Mustard_Yellow.png");
-		setX(Scaler.width / 2);
-		setY(Scaler.height - getHeight());
-//		v0 = 0;
-//		vL = -Scaler.width / 200;
-//		vR = Scaler.width / 200;
+		setX(Scaler.WIDTH / 2);
+		setY(Scaler.HEIGHT - getHeight());
 	}
 
 	@Override
@@ -37,17 +34,29 @@ public class Ship extends SpaceObject {
 
 	}
 
+	/*****************************************************************
+	 * This method gets the velocity of the ship when its stopped.
+	 * @return V0 - The velocity when ship is stopped.
+	 *****************************************************************/
 	public static int getV0() {
-		return v0;
+		return V0;
 	}
 
 
+	/******************************************************************
+	 * This method gets the velocity of the ship when driving left.
+	 * @return VL - the left velocity of the ship.
+	 *****************************************************************/
 	public static int getvL() {
-		return vL;
+		return VL;
 	}
 
+	/******************************************************************
+	 * This method gets the velocity of the ship when driving right.
+	 * @return VR - the right velocity of the ship.
+	 *****************************************************************/
 	public static int getvR() {
-		return vR;
+		return VR;
 	}
 
 }

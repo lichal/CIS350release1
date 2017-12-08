@@ -1,6 +1,6 @@
 package nachogame;
 
-import java.io.File;
+
 
 /**********************************************************************
  * This is a Projectile class for spaceNachos.
@@ -9,7 +9,7 @@ import java.io.File;
  * @author Cheng Li
  * @author Ryan Bassor
  *********************************************************************/
-public class Projectile extends SpaceObject{
+public class Projectile extends SpaceObject {
 	/** The damage the projectile inflicts. */
 	private int dmg;
 
@@ -17,11 +17,11 @@ public class Projectile extends SpaceObject{
 	 * The constructor for Projectile.
 	 * @param s - The ship fires projectile
 	 *****************************************************************/
-	public Projectile(Ship s) {
+	public Projectile(final Ship s) {
 		super(3.0, 0.0085, "Art/Disgusting_Mustard_Yellow.png");
-		setX((int)(s.getMiddle() - 0.5 * getWidth()));
-		setY(Scaler.height - s.getHeight() - getHeight());
-		velY = - Scaler.height/100;
+		setX((int) (s.getMiddle() - 0.5 * getWidth()));
+		setY(Scaler.HEIGHT - s.getHeight() - getHeight());
+		velY = -Scaler.HEIGHT / 100;
 		dmg = 1;
 	}
 

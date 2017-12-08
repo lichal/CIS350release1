@@ -2,7 +2,6 @@ package nachogame;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*******************************************************************
@@ -22,40 +20,45 @@ import javax.swing.JPanel;
  ******************************************************************/
 public class MyDialog extends JDialog implements ActionListener {
 
-	/** Message of the dialog */
+	/** Message of the dialog. */
 	private JLabel messageLabel;
 
-	/** Left button of the dialog */
+	/** Left button of the dialog. */
 	private MyButton leftButton;
 
-	/** Right button of the dialog */
+	/** Right button of the dialog. */
 	private MyButton rightButton;
 
-	/** Boolean determine if the game is resumed */
+	/** Boolean determine if the game is resumed. */
 	private boolean resumed;
 	
-	/** Boolean determine if the game is restart */
+	/** Boolean determine if the game is restart. */
 	private boolean restart;
 	
+	/** The boolean that states whether the game should be at main menu. */
 	private boolean backToMain;
 	
-	/** The JPanel holds left and right button */
+	/** The JPanel holds left and right button. */
 	private JPanel buttonPanel;
 	
-	/** The JPanel holds message */
+	/** The JPanel holds message. */
 	private JPanel messagePanel;
 	
-	/** Background color use for the dialog */
+	/** Background color use for the dialog. */
 	private Color backColor;
 	
-	/** Determines which dialog I'm using */
+	/** Determines which dialog I'm using. */
 	private String dialogStat;
 	
 	/*******************************************************************
-	 * This is the JDialog for game pause
+	 * This is the JDialog for game pause.
 	 * @param parent - the parent JFrame
+	 * @param message - the message to be displayed
+	 * @param leftButtonText - the message displayed in the rightbutton
+	 * @param rightButtonText - the message displayed in the leftbutton
 	 ******************************************************************/
-	public MyDialog(JFrame parent, String message, String leftButtonText, String rightButtonText) {
+	public MyDialog(final JFrame parent, final String message, 
+		final String leftButtonText, final String rightButtonText) {
 		super(parent, true);
 		
 		// set the message so we know which dialog it is
@@ -120,15 +123,16 @@ public class MyDialog extends JDialog implements ActionListener {
 		// set dialog information
 		setUndecorated(true);
 		
-		setPreferredSize(new Dimension(Scaler.width/6, Scaler.height/6));
+		setPreferredSize(new Dimension(Scaler.WIDTH / 6,
+			Scaler.HEIGHT / 6));
 		
 		// set the dialog to be transparent
-		getRootPane ().setOpaque (false);
+		getRootPane().setOpaque(false);
 //		setOpacity(0.3f);
 		
 		// set the background color for the dialog
-		getContentPane ().setBackground (backColor);
-		setBackground (backColor);
+		getContentPane().setBackground(backColor);
+		setBackground(backColor);
 		
 		// pack
 		pack();
@@ -142,28 +146,57 @@ public class MyDialog extends JDialog implements ActionListener {
 
 	/*******************************************************************
 	 * This is a getter that determines if resume is pressed.
+	 * @return resumed - the boolean that determines if the game 
+	 * is continuing
 	 ******************************************************************/
 	public boolean getResumed() {
 		return resumed;
 	}
 
-	public void setResumed(boolean resumed) {
+
+	/*******************************************************************
+	 * This sets the boolean for resumed.
+	 * @param resumed - a boolean that determines whether the game continues
+	 ******************************************************************/
+	public void setResumed(final boolean resumed) {
 		this.resumed = resumed;
 	}
 	
-	public boolean getRestart(){
+
+	/*******************************************************************
+	 * This is a getter that determines if resume is pressed.
+	 * @return restart - the boolean that states whether game restarts.
+	 ******************************************************************/
+	public boolean getRestart() {
 		return restart;
 	}
 	
-	public void setRestart(boolean restart) {
+	/*******************************************************************
+	 * This is a getter that determines if resume is pressed.
+	 * @param restart - the boolean that states whether game restarts.
+	 ******************************************************************/
+	public void setRestart(final boolean restart) {
 		this.restart = restart;
 	}
 	
-	public boolean getBackToMain(){
+	
+	/*******************************************************************
+	 * This is a getter that determines if the game should go to the 
+	 * main menu.
+	 * @return backToMain - the boolean that states whether game 
+	 * should go to the main menu.
+	 ******************************************************************/
+	public boolean getBackToMain() {
 		return backToMain;
 	}
 	
-	public void setBackToMain(boolean backToMain) {
+	/*******************************************************************
+	 * This method sets the boolean that determines if the game should
+	 * go back to the main menu.
+	 * @param backToMain - the boolean that sets the game back to main 
+	 * menu.
+	 ******************************************************************/
+	public void setBackToMain(final boolean backToMain) {
 		this.backToMain = backToMain;
 	}
 

@@ -1,6 +1,6 @@
 package nachogame;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -8,11 +8,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+//import javax.swing.border.LineBorder;
 /**********************************************************************
  * The main nacho frame, has the main menu, access to each levels.
  * 
@@ -45,15 +45,17 @@ public class NachoFrame extends JPanel implements ActionListener {
 	/** JPanel use to store title. */
 	private JPanel titlePanel;
 	
-	/** This panel will combine both button and title panel */
+	/** This panel will combine both button and title panel. */
 	private JPanel combinePanel;
 	
-	/** These two panel is created as a place holder. */
+	/** This panel is created as a place holder. */
 	private JPanel holderPanel1;
+	
+	/** This panel is also created as a place holder. */
 	private JPanel holderPanel2;
 	
 	/******************************************************************
-	 * Main constructor of Nacho frame
+	 * Main constructor of Nacho frame.
 	 *****************************************************************/
 	public NachoFrame() {
 		// Declare an empty color has an alpha of 0.
@@ -136,17 +138,26 @@ public class NachoFrame extends JPanel implements ActionListener {
 		
 		// Start a new JFrame
 		mainFrame = new JFrame("SPACE ROCK NACHOS");
-		mainFrame.setSize(Scaler.width, Scaler.height);
+		mainFrame.setSize(Scaler.WIDTH, Scaler.HEIGHT);
 		mainFrame.add(this);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 	}
 	
+	/*******************************************************************
+	 * This method returns the player of the game.
+	 * @return player - the player object in the game.
+	 ******************************************************************/
 	public Player getPlayer() {
 		return player;
 	}
 
-	public void newGame(LevelNum num) {
+	/*******************************************************************
+	 * This method starts a new NachoPanel that plays the corresponding 
+	 * level for num.
+	 * @param num - the level to be initiated.
+	 ******************************************************************/
+	public void newGame(final LevelNum num) {
 		// if player's xp is less then 0
 		if (player.getXP() <= 0) {
 			//start the new game with initial xp of 10
@@ -156,20 +167,16 @@ public class NachoFrame extends JPanel implements ActionListener {
 		mainFrame.add(nachoGame);
 	}
 	
+	/******************************************************************
+	 * This method paints the background for the nacho frame.
+	 * @param g - The graphics for the frame.
+	 *****************************************************************/
 	public void paintComponent(final Graphics g) {
 		g.drawImage(new BackGround(2).getBack(), 0, 0, this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		if (e.getSource() == startButton) {
-//			
-//			// make a new nacho game
-//			newGame(LevelNum.LEVEL1);
-//			
-//			// set main panel visible to false when the game start
-//			setVisible(false);
-//		}
 		
 		if (e.getSource() == level1) {
 			
@@ -244,6 +251,10 @@ public class NachoFrame extends JPanel implements ActionListener {
 		}
 	}
 
+	/*******************************************************************
+	 * The main method for executing our game.
+	 * @param args - the commands passed to our executable.
+	 ******************************************************************/
 	public static void main(final String[] args) {
 		new NachoFrame();
 	}
