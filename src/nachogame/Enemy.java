@@ -28,7 +28,11 @@ public class Enemy extends SpaceObject {
 	/** The rectangle for shoot determine a collision. */
 	private Rectangle shoot = new Rectangle();
 	
+
+	
+
 	/** A boolean that indicates whether the enemy has been shot. */
+
 	private boolean shot;
 
 	/*****************************************************************
@@ -44,8 +48,11 @@ public class Enemy extends SpaceObject {
 		Random r = new Random();
 		setX(r.nextInt(Scaler.WIDTH - getWidth()));
 		setY(-getHeight());
+
 		double tempY = (Math.ceil(Scaler.HEIGHT / 400.0));
+
 		velY = (int) tempY;
+
 		shot = false;
 		counting = 0;
 	}

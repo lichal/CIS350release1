@@ -71,7 +71,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	/** Color for the statistic Panel. */
 	private Color statColor;
 
-	/** The NachoFrame "this" belongs to. */
+
+	/** The NachoFrame that "this" belongs to. */
 	private NachoFrame mainPanel;
 	
 	/** The LevelNum of the current level being displayed. */
@@ -88,8 +89,12 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	public NachoPanel(final JFrame parent, final Player player, 
 			final NachoFrame mainPanel, final LevelNum num) {
 		/* instantiating all key driven booleans as false */
+
+		level = new Level(LevelNum.LEVEL1);
+
 		this.num = num;
 		level = new Level(this.num);
+
 		this.player = player;
 		driveRight = false;
 		driveLeft = false;
@@ -136,6 +141,11 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		g.setFont(Scaler.font);
+
+		//actualHeight = getHeight();
+		//actualWidth = getWidth();
+
+
 
 
 		/* draw the background image */
@@ -242,7 +252,7 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		 */
 		game.checkShipPosition();
 		game.checkProjectileStatus();
-
+		
 		/* clearing enemies and projectiles that collided */
 		clearSpentProjectiles();
 		clearDeadEnemies();
@@ -364,7 +374,8 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 		for (Enemy c : game.getDeadEnemies()) {
 			game.getEnemies().remove(c);
 			c.incrementCount();
-			if (c.getCounting() % 40 == 0) {
+			//if (c.getCounting() % 40 == 0) {
+			if (c.getCounting() >= 40) {
 				e.add(c);
 //				startCount = false;
 				c.resetCount();
@@ -381,6 +392,10 @@ public class NachoPanel extends JPanel implements ActionListener, KeyListener {
 			game.removeSpaceCadet(a);
 		}
 	}
+
+
+	
+
 
 
 	/******************************************************************
