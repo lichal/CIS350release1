@@ -6,5 +6,5 @@ This is a collaborative project using java. The project is based on the idea of 
 
 ## Documentation and Information
 * [Javadocs](https://jonnydewent.github.io/NachoSpaceInvaders/)
-* [wiki](https://github.com/lichal/Space-Rock-Nacho-Game/wiki).
+* [Wiki](https://github.com/lichal/Space-Rock-Nacho-Game/wiki)
 
