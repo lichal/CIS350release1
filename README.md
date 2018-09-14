@@ -9,3 +9,7 @@ This is a collaborative project using java. The project is based on the idea of 
 * [Javadocs](https://jonnydewent.github.io/NachoSpaceInvaders/)
 * [Wiki](https://github.com/lichal/Space-Rock-Nacho-Game/wiki)
 
+## Contributors
+* Jon DeWent
+* Cheng Li
+* Ryan Basso
