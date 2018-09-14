@@ -1,4 +1,5 @@
-# Space-Rock-Nacho-Game | Fight Nachos in the Space
+# Space-Rock-Nacho-Game 
+Fight Nachos in the Space
 
 
 ## Description
